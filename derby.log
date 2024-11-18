@@ -1,0 +1,16 @@
+----------------------------------------------------------------
+Tue Nov 19 00:04:27 GMT+03:00 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-0193-4117-5043-000000d7bee8 
+on database directory memory:/Users/aliilan/Dev/Java/spring/project/92b0902b-3816-4a04-b787-e705a03efa4c with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5a07e868 
+Loaded from file:/Users/aliilan/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.16.1.1/f9ca2054b3e33ec3f3f19df4a7490352d82de54a/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=23+37-2369
+user.dir=/Users/aliilan/Dev/Java/spring/project
+os.name=Mac OS X
+os.arch=aarch64
+os.version=15.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Tue Nov 19 00:04:40 GMT+03:00 2024:
+Shutting down instance a816c00e-0193-4117-5043-000000d7bee8 on database directory memory:/Users/aliilan/Dev/Java/spring/project/92b0902b-3816-4a04-b787-e705a03efa4c with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5a07e868 
