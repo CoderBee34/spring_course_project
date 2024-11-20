@@ -30,6 +30,14 @@ public class Service {
         this.price = price;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Service{" +

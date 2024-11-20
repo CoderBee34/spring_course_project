@@ -10,10 +10,10 @@ public class Car {
     private double mileage;
     private String transmissionType;
     private double dailyPrice;
-    private CarType carType;
-    private CarStatus carStatus;
+    private CarType type;
+    private CarStatus status;
 
-    public Car(String barcode, String licensePlate, int passengerCapacity, String brand, String model, double mileage, String transmissionType, double dailyPrice, CarType carType, CarStatus carStatus) {
+    public Car(String barcode, String licensePlate, int passengerCapacity, String brand, String model, double mileage, String transmissionType, double dailyPrice, CarType type, CarStatus carStatus) {
         this.barcode = barcode;
         this.licensePlate = licensePlate;
         this.passengerCapacity = passengerCapacity;
@@ -22,8 +22,8 @@ public class Car {
         this.mileage = mileage;
         this.transmissionType = transmissionType;
         this.dailyPrice = dailyPrice;
-        this.carType = carType;
-        this.carStatus = carStatus;
+        this.type = type;
+        this.status = carStatus;
     }
 
     public Car() {
@@ -93,20 +93,21 @@ public class Car {
         this.dailyPrice = dailyPrice;
     }
 
-    public CarType getCarType() {
-        return carType;
+    public CarType getType() {
+        return type;
     }
 
-    public void setCarType(CarType carType) {
-        this.carType = carType;
+    public void setType(CarType type) {
+        this.type = type;
     }
 
-    public CarStatus getCarStatus() {
-        return carStatus;
+    public CarStatus getStatus() {
+        return status;
     }
 
-    public void setCarStatus(CarStatus carStatus) {
-        this.carStatus = carStatus;
+
+    public void setStatus(CarStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -120,8 +121,8 @@ public class Car {
                 ", mileage=" + mileage +
                 ", transmissionType='" + transmissionType + '\'' +
                 ", dailyPrice=" + dailyPrice +
-                ", carType=" + carType +
-                ", carStatus=" + carStatus +
+                ", type=" + type +
+                ", status=" + status +
                 '}';
     }
 }

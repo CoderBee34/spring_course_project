@@ -3,6 +3,8 @@ package com.springcourse.project.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
+import java.util.List;
+
 //@Entity
 public class Member {
     @Id
@@ -19,6 +21,8 @@ public class Member {
     private String phone;
     @Column(name = "DRIVING_LICENSE_ID")
     private String drivingLicenseId;
+
+    private List<Reservation> reservationList;
 
 
     public Member() {
@@ -79,6 +83,15 @@ public class Member {
     public void setDrivingLicenseId(String drivingLicenseNumber) {
         this.drivingLicenseId = drivingLicenseNumber;
     }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
+    }
+
 
     @Override
     public String toString() {

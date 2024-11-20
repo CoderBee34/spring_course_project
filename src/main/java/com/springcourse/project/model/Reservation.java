@@ -3,6 +3,7 @@ package com.springcourse.project.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 //@Entity
@@ -28,6 +29,10 @@ public class Reservation {
     @Column()
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
+
+    private List<Equipment> equipmentList;
+
+    private List<Service> serviceList;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
@@ -121,6 +126,31 @@ public class Reservation {
     public void setMember(Member member) {
         this.member = member;
     }
+
+    public List<Equipment> getEquipmentList() {
+        return equipmentList;
+    }
+
+    public void setEquipmentList(List<Equipment> equipmentList) {
+        this.equipmentList = equipmentList;
+    }
+
+    public List<Service> getServiceList() {
+        return serviceList;
+    }
+
+    public void setServiceList(List<Service> serviceList) {
+        this.serviceList = serviceList;
+    }
+
+    public String getReservationNumber() {
+        return reservationNumber;
+    }
+
+    public void setReservationNumber(String reservationNumber) {
+        this.reservationNumber = reservationNumber;
+    }
+
 
     @Override
     public String toString() {
