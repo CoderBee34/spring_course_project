@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ProjectApplication {
 
+    // java 23 ve Derby database'e ihtiyacınız olucak.
     public static void main(String[] args) {
         SpringApplication.run(ProjectApplication.class, args);
     }
