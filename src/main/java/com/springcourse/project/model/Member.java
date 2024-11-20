@@ -3,7 +3,7 @@ package com.springcourse.project.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
-@Entity
+//@Entity
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
