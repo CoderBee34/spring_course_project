@@ -1,7 +1,6 @@
 package com.springcourse.project.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Car {
@@ -14,7 +13,11 @@ public class Car {
     private double mileage;
     private String transmissionType;
     private double dailyPrice;
+    @Column()
+    @Enumerated(EnumType.STRING)
     private CarType type;
+    @Column()
+    @Enumerated(EnumType.STRING)
     private CarStatus status;
 
     public Car(String barcode, String licensePlate, int passengerCapacity, String brand, String model, double mileage, String transmissionType, double dailyPrice, CarType type, CarStatus carStatus) {

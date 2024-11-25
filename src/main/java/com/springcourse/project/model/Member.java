@@ -24,8 +24,8 @@ public class Member {
     private String drivingLicenseId;
 
     @OneToMany( )
-    @JoinTable(name = "REL_COURSE_STUDENT",
-            joinColumns = @JoinColumn(name = "MEMBER_ID", referencedColumnName = "ID"),
+    @JoinTable(name = "REL_MEMBER_RESERVATION",
+            joinColumns = @JoinColumn(name = "MEMBER_ID", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "RESERVATION_ID", referencedColumnName = "reservationNumber"))
     private List<Reservation> reservationList = new ArrayList<>();
 

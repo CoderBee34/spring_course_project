@@ -12,7 +12,7 @@ public class Reservation {
     @Column(unique = true, length = 8)
     private String reservationNumber;
 
-    @OneToOne
+    @ManyToOne
     private Car car;
 
     @Column()
@@ -22,10 +22,10 @@ public class Reservation {
     @Column()
     private Date dropOffDateTime;
     @PrimaryKeyJoinColumn
-    @OneToOne
+    @ManyToOne
     private Location pickUpLocation;
     @PrimaryKeyJoinColumn
-    @OneToOne
+    @ManyToOne
     private Location dropOffLocation;
     @Column()
     private Date returnDate;
@@ -40,7 +40,7 @@ public class Reservation {
     private List<Service> serviceList;
 
     @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "MEMBER_ID", nullable = false)
     private Member member;
 
     public Reservation(Date creationDate, Date pickUpDateTime, Date dropOffDateTime, Location pickUpLocation, Location dropOffLocation, Date returnDate, ReservationStatus status, Member member) {
