@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-//@Entity
+@Entity
 public class Reservation {
     @Id
     @Column(unique = true, length = 8)
     private String reservationNumber;
+
+    @OneToOne
+    private Car car;
 
     @Column()
     private Date creationDate;
@@ -18,10 +21,10 @@ public class Reservation {
     private Date pickUpDateTime;
     @Column()
     private Date dropOffDateTime;
-    @Column()
+    @PrimaryKeyJoinColumn
     @OneToOne
     private Location pickUpLocation;
-    @Column()
+    @PrimaryKeyJoinColumn
     @OneToOne
     private Location dropOffLocation;
     @Column()
@@ -30,8 +33,10 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
+    @ManyToMany
     private List<Equipment> equipmentList;
 
+    @ManyToMany
     private List<Service> serviceList;
 
     @ManyToOne
@@ -128,7 +133,7 @@ public class Reservation {
     }
 
     public List<Equipment> getEquipmentList() {
-        return equipmentList;
+        return this.equipmentList;
     }
 
     public void setEquipmentList(List<Equipment> equipmentList) {
@@ -141,6 +146,14 @@ public class Reservation {
 
     public void setServiceList(List<Service> serviceList) {
         this.serviceList = serviceList;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public String getReservationNumber() {

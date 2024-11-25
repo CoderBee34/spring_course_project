@@ -3,9 +3,10 @@ package com.springcourse.project.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 
+import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
+@Entity
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +23,11 @@ public class Member {
     @Column(name = "DRIVING_LICENSE_ID")
     private String drivingLicenseId;
 
-    private List<Reservation> reservationList;
+    @OneToMany( )
+    @JoinTable(name = "REL_COURSE_STUDENT",
+            joinColumns = @JoinColumn(name = "MEMBER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "RESERVATION_ID", referencedColumnName = "reservationNumber"))
+    private List<Reservation> reservationList = new ArrayList<>();
 
 
     public Member() {

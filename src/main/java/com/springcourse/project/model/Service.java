@@ -1,7 +1,11 @@
 package com.springcourse.project.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class Service {
+    @Id
     private int id;
     private String name;
     private double price;

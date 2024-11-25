@@ -1,7 +1,11 @@
 package com.springcourse.project.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class Car {
+    @Id
     private String barcode;
     private String licensePlate;
     private int passengerCapacity;

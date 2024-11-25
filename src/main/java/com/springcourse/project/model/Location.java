@@ -1,7 +1,11 @@
 package com.springcourse.project.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class Location {
+    @Id
     private int code;
     private String name;
     private String address;
