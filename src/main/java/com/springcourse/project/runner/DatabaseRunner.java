@@ -27,7 +27,7 @@ public class DatabaseRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-// Create some Locations
+
         Location location1 = new Location();
         location1.setCode(1);
         location1.setName("Downtown");
@@ -40,7 +40,7 @@ public class DatabaseRunner implements CommandLineRunner {
 
         locationRepository.saveAll(Arrays.asList(location1, location2));
 
-        // Create some Services
+
         Service service1 = new Service();
         service1.setId(1);
         service1.setName("GPS");
@@ -65,12 +65,10 @@ public class DatabaseRunner implements CommandLineRunner {
 
         equipmentRepository.saveAll(Arrays.asList(equipment1, equipment2));
 
-        // Create some Cars
         Car car1 = new Car("12345", "AB123CD", 4, "Toyota", "Corolla", 15000.5, "Automatic", 50.0, CarType.STANDARD, CarStatus.AVAILABLE);
         Car car2 = new Car("67890", "EF456GH", 7, "Ford", "Explorer", 12000.3, "Manual", 70.0, CarType.SUV, CarStatus.RESERVED);
         carRepository.saveAll(Arrays.asList(car1, car2));
 
-        // Create a Member
         Member member = new Member();
         member.setName("John Doe");
         member.setAddress("789 Elm St, City");
@@ -79,9 +77,8 @@ public class DatabaseRunner implements CommandLineRunner {
         member.setDrivingLicenseId("DL1234567");
         memberRepository.save(member);
 
-        // Create a Reservation
         Reservation reservation = new Reservation();
-        reservation.setReservationNumber("RES1234");
+        reservation.setReservationNumber("7891234");
         reservation.setCar(car1);
         reservation.setCreationDate(new Date());
         reservation.setPickUpDateTime(new Date());
@@ -93,7 +90,9 @@ public class DatabaseRunner implements CommandLineRunner {
         reservation.setEquipmentList(Arrays.asList(equipment1));
         reservation.setServiceList(Arrays.asList(service2));
         reservation.setMember(member);
-
+        member.getReservationList().add(reservation);
         reservationRepository.save(reservation);
+
+        memberRepository.save(member);
     }
 }
