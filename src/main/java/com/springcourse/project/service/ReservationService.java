@@ -68,8 +68,12 @@ public class ReservationService {
     }
 
     public boolean deleteReservation(String reservationNumber){
-
-
+        Car reservedCar = reservationRepository.findCarByReservationNumber(reservationNumber);
+        if (reservedCar != null) {
+            carRepository.updateCarStatusByBarcode(CarStatus.AVAILABLE, reservedCar.getBarcode());
+            reservationRepository.deleteReservationById(reservationNumber);
+            return true;
+        }
         return false;
     }
 }

@@ -33,9 +33,6 @@ public interface ReservationRepository extends JpaRepository<Reservation,String>
     List<Reservation> findReservationsByCarBarcode(String carBarcode);
 
     @Query("SELECT r.car FROM Reservation r WHERE r.reservationNumber = ?1")
-    List<Car> findCarsByReservationNumber(String reservationNumber);
-
-    @Query("SELECT r.member FROM Reservation r WHERE r.reservationNumber = ?1")
-    List<Member> findMembersByReservationNumber(String reservationNumber);
+    Car findCarByReservationNumber(String reservationNumber);
 
 }
