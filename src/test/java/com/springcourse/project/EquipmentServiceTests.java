@@ -16,5 +16,8 @@ public class EquipmentServiceTests {
     EquipmentService equipmentService;
 
     @Test
-    void addEquipmentToReservationTest(){}
+    void addEquipmentToReservationTest(){
+        boolean result = equipmentService.addEquipmentToReservation("78912341",2);
+        assertTrue(result);
+    }
 }

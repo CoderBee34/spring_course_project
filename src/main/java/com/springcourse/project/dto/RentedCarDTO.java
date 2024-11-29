@@ -48,4 +48,84 @@ public class RentedCarDTO {
         this.dropOffLocation = dropOffLocation;
         this.reservationDayCount = reservationDayCount;
     }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getTransmissionType() {
+        return transmissionType;
+    }
+
+    public void setTransmissionType(String transmissionType) {
+        this.transmissionType = transmissionType;
+    }
+
+    public CarType getType() {
+        return type;
+    }
+
+    public void setType(CarType type) {
+        this.type = type;
+    }
+
+    public String getReservationNumber() {
+        return reservationNumber;
+    }
+
+    public void setReservationNumber(String reservationNumber) {
+        this.reservationNumber = reservationNumber;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public LocalDate getDropOffDateTime() {
+        return dropOffDateTime;
+    }
+
+    public void setDropOffDateTime(LocalDate dropOffDateTime) {
+        this.dropOffDateTime = dropOffDateTime;
+    }
+
+    public Location getDropOffLocation() {
+        return dropOffLocation;
+    }
+
+    public void setDropOffLocation(Location dropOffLocation) {
+        this.dropOffLocation = dropOffLocation;
+    }
+
+    public int getReservationDayCount() {
+        return reservationDayCount;
+    }
+
+    public void setReservationDayCount(int reservationDayCount) {
+        this.reservationDayCount = reservationDayCount;
+    }
 }

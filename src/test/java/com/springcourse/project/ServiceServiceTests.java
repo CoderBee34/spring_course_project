@@ -15,6 +15,8 @@ public class ServiceServiceTests {
     ServiceService serviceService;
 
     @Test
-    void addServiceToReservation(){}
+    void addServiceToReservation(){
+        serviceService.addServiceToReservation("78912341",1);
+    }
 
 }
