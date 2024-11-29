@@ -1,7 +1,11 @@
 package com.springcourse.project.model;
 
+import ch.qos.logback.core.util.TimeUtil;
 import jakarta.persistence.*;
+import jdk.jfr.Timespan;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -16,11 +20,11 @@ public class Reservation {
     private Car car;
 
     @Column()
-    private Date creationDate;
+    private LocalDate creationDate;
     @Column()
-    private Date pickUpDateTime;
+    private LocalDate pickUpDateTime;
     @Column()
-    private Date dropOffDateTime;
+    private LocalDate dropOffDateTime;
     @PrimaryKeyJoinColumn
     @ManyToOne
     private Location pickUpLocation;
@@ -28,7 +32,7 @@ public class Reservation {
     @ManyToOne
     private Location dropOffLocation;
     @Column()
-    private Date returnDate;
+    private LocalDate returnDate;
     @Column()
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
@@ -43,7 +47,9 @@ public class Reservation {
     @JoinColumn(name = "MEMBER_ID", nullable = false)
     private Member member;
 
-    public Reservation(Date creationDate, Date pickUpDateTime, Date dropOffDateTime, Location pickUpLocation, Location dropOffLocation, Date returnDate, ReservationStatus status, Member member) {
+    private double totalAmount;
+
+    public Reservation(LocalDate creationDate, LocalDate pickUpDateTime, LocalDate dropOffDateTime, Location pickUpLocation, Location dropOffLocation, LocalDate returnDate, ReservationStatus status, Member member) {
         this.reservationNumber = reservationNumberGenerator();
         this.creationDate = creationDate;
         this.pickUpDateTime = pickUpDateTime;
@@ -68,27 +74,27 @@ public class Reservation {
         return randomString.toString();
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getPickUpDateTime() {
+    public LocalDate getPickUpDateTime() {
         return pickUpDateTime;
     }
 
-    public void setPickUpDateTime(Date pickUpDateTime) {
+    public void setPickUpDateTime(LocalDate pickUpDateTime) {
         this.pickUpDateTime = pickUpDateTime;
     }
 
-    public Date getDropOffDateTime() {
+    public LocalDate getDropOffDateTime() {
         return dropOffDateTime;
     }
 
-    public void setDropOffDateTime(Date dropOffDateTime) {
+    public void setDropOffDateTime(LocalDate dropOffDateTime) {
         this.dropOffDateTime = dropOffDateTime;
     }
 
@@ -108,11 +114,11 @@ public class Reservation {
         this.dropOffLocation = dropOffLocation;
     }
 
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 
@@ -164,6 +170,15 @@ public class Reservation {
         this.reservationNumber = reservationNumber;
     }
 
+    public double getTotalAmount() {
+        long timeDiffInDays = Period.between(pickUpDateTime, dropOffDateTime).getDays();
+        double totalAmount = timeDiffInDays * car.getDailyPrice();
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 
     @Override
     public String toString() {

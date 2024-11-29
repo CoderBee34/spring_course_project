@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -80,12 +81,12 @@ public class DatabaseRunner implements CommandLineRunner {
         Reservation reservation = new Reservation();
         reservation.setReservationNumber("7891234");
         reservation.setCar(car1);
-        reservation.setCreationDate(new Date());
-        reservation.setPickUpDateTime(new Date());
-        reservation.setDropOffDateTime(new Date());
+        reservation.setCreationDate(LocalDate.now());
+        reservation.setPickUpDateTime(LocalDate.now().plusDays(5));
+        reservation.setDropOffDateTime(LocalDate.now().plusDays(15));
         reservation.setPickUpLocation(location1);
         reservation.setDropOffLocation(location2);
-        reservation.setReturnDate(new Date());
+        reservation.setReturnDate(LocalDate.now().plusDays(20));
         reservation.setStatus(ReservationStatus.PENDING);
         reservation.setEquipmentList(Arrays.asList(equipment1));
         reservation.setServiceList(Arrays.asList(service2));
