@@ -31,7 +31,9 @@ public class CarService {
     public List<RentedCarDTO> getRentedCars(){
         List<RentedCarDTO> rentedCarDTOList = new ArrayList<>();
 
-        List<Reservation> reservationList = reservationRepository.findReservationsByStatusEqualsOrStatusEquals(ReservationStatus.ACTIVE,ReservationStatus.PENDING);
+        List<Reservation> reservationList = reservationRepository.findReservationsByStatusEquals(ReservationStatus.ACTIVE);
+        reservationList.addAll(reservationRepository.findReservationsByStatusEquals(ReservationStatus.CONFIRMED));
+        reservationList.addAll(reservationRepository.findReservationsByStatusEquals(ReservationStatus.NONE));
         for(Reservation reservation : reservationList){
             Optional<Car> carOptional = carRepository.findById(reservation.getCar().getBarcode());
             rentedCarDTOList.add(new RentedCarDTO(carOptional.get(), reservation));

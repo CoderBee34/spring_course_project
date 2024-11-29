@@ -7,7 +7,8 @@ public enum CarStatus {
     AVAILABLE,
     RESERVED,
     LOANED,
-    BEING_SERVICED;
+    BEING_SERVICED,
+    LOST;
     private static final Map<String, CarStatus> stringToStatusMap = new HashMap<>();
 
     static {
@@ -15,6 +16,7 @@ public enum CarStatus {
         stringToStatusMap.put("Reserved", RESERVED);
         stringToStatusMap.put("Loaned", LOANED);
         stringToStatusMap.put("Being Serviced", BEING_SERVICED);
+        stringToStatusMap.put("Lost", LOST);
     }
 
     public static CarStatus fromString(String status) {
