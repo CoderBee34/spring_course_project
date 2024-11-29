@@ -1,6 +1,6 @@
 package com.springcourse.project.controller;
 
-import com.springcourse.project.dto.CarDTO;
+import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class CarController {
     CarService carService;
 
     @GetMapping("/all")
-    public List<CarDTO> availableCars(){
+    public List<AvailableCarDTO> availableCars(){
         return carService.searchAvailableCars("Standard", "Automatic");
     }
 

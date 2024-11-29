@@ -3,7 +3,7 @@ package com.springcourse.project.dto;
 import com.springcourse.project.model.Car;
 import com.springcourse.project.model.CarType;
 
-public class CarDTO {
+public class AvailableCarDTO {
     private String brand;
     private String model;
     private CarType carType;
@@ -11,9 +11,9 @@ public class CarDTO {
     private String transmissionType;
     private String barcode;
 
-    public CarDTO() {
+    public AvailableCarDTO() {
     }
-    public CarDTO(Car car) {
+    public AvailableCarDTO(Car car) {
         this.brand = car.getBrand();
         this.model = car.getModel();
         this.carType = car.getType();
@@ -22,7 +22,7 @@ public class CarDTO {
         this.barcode = car.getBarcode();
     }
 
-    public CarDTO(String brand, String model, CarType carType, double mileage, String transmissionType, String barcode) {
+    public AvailableCarDTO(String brand, String model, CarType carType, double mileage, String transmissionType, String barcode) {
         this.brand = brand;
         this.model = model;
         this.carType = carType;

@@ -48,6 +48,8 @@ public class ReservationService {
                     ReservationStatus.PENDING,
                     memberRepository.findById(memberID).get()
             );
+            newReservation.setEquipmentList(equipmentList);
+            newReservation.setServiceList(serviceList);
             reservationRepository.save(newReservation);
             return new ReservationDTO(newReservation);
         }
