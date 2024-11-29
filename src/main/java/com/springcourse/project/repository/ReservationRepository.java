@@ -26,4 +26,7 @@ public interface ReservationRepository extends JpaRepository<Reservation,String>
     @Modifying
     @Query("DELETE Reservation r WHERE r.reservationNumber = ?1")
     void deleteReservationById(String reservationNumber);
+
+    @Query("SELECT r FROM Reservation r WHERE r.car.barcode = ?1")
+    List<Reservation> findReservationsByCarBarcode(String carBarcode);
 }

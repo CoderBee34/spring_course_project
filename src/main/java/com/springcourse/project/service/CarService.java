@@ -57,4 +57,21 @@ public class CarService {
         return false;
     }
 
+    public boolean deleteCar(String barcode){
+        Optional<Car> carOptional = carRepository.findById(barcode);
+        if (carOptional.isPresent()){
+            Car car = carOptional.get();
+            if (car.getStatus() == CarStatus.AVAILABLE){
+                List<Reservation> reservationList = reservationRepository.findReservationsByCarBarcode(barcode);
+                if (reservationList.size() == 0){
+                    carRepository.deleteCarByBarcode(barcode);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+        return false;
+    }
+
 }
