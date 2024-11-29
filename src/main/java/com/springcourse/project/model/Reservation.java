@@ -1,12 +1,9 @@
 package com.springcourse.project.model;
 
-import ch.qos.logback.core.util.TimeUtil;
 import jakarta.persistence.*;
-import jdk.jfr.Timespan;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -47,6 +44,7 @@ public class Reservation {
     @JoinColumn(name = "MEMBER_ID", nullable = false)
     private Member member;
 
+    @Transient
     private double totalAmount;
 
     public Reservation(LocalDate creationDate, LocalDate pickUpDateTime, LocalDate dropOffDateTime, Location pickUpLocation, Location dropOffLocation, LocalDate returnDate, ReservationStatus status, Member member) {

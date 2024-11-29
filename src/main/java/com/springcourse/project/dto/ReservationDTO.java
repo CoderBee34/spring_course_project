@@ -2,13 +2,14 @@ package com.springcourse.project.dto;
 
 import com.springcourse.project.model.Location;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ReservationDTO {
 
     private String reservationNumber;
-    private Date pickUpDateTime;
-    private Date dropOffDateTime;
+    private LocalDate pickUpDateTime;
+    private LocalDate dropOffDateTime;
     private Location pickUpLocation;
     private Location dropOffLocation;
     private double totalAmount;
@@ -16,7 +17,7 @@ public class ReservationDTO {
     public ReservationDTO() {
     }
 
-    public ReservationDTO(String reservationNumber, Date pickUpDateTime, Date dropOffDateTime, Location pickUpLocation, Location dropOffLocation, double totalAmount) {
+    public ReservationDTO(String reservationNumber, LocalDate pickUpDateTime, LocalDate dropOffDateTime, Location pickUpLocation, Location dropOffLocation, double totalAmount) {
         this.reservationNumber = reservationNumber;
         this.pickUpDateTime = pickUpDateTime;
         this.dropOffDateTime = dropOffDateTime;
@@ -33,19 +34,19 @@ public class ReservationDTO {
         this.reservationNumber = reservationNumber;
     }
 
-    public Date getPickUpDateTime() {
+    public LocalDate getPickUpDateTime() {
         return pickUpDateTime;
     }
 
-    public void setPickUpDateTime(Date pickUpDateTime) {
+    public void setPickUpDateTime(LocalDate pickUpDateTime) {
         this.pickUpDateTime = pickUpDateTime;
     }
 
-    public Date getDropOffDateTime() {
+    public LocalDate getDropOffDateTime() {
         return dropOffDateTime;
     }
 
-    public void setDropOffDateTime(Date dropOffDateTime) {
+    public void setDropOffDateTime(LocalDate dropOffDateTime) {
         this.dropOffDateTime = dropOffDateTime;
     }
 
