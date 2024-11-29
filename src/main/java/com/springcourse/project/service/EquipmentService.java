@@ -4,6 +4,7 @@ import com.springcourse.project.model.Equipment;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.repository.EquipmentRepository;
 import com.springcourse.project.repository.ReservationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class EquipmentService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Transactional
     public boolean addEquipmentToReservation(String reservationNumber, int equipmentCode){
         Optional<Equipment> equipmentOptional = equipmentRepository.findById(equipmentCode);
         if (equipmentOptional.isPresent()){

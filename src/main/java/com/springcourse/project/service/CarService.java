@@ -5,6 +5,7 @@ import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.model.*;
 import com.springcourse.project.repository.CarRepository;
 import com.springcourse.project.repository.ReservationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,7 @@ public class CarService {
         return false;
     }
 
+    @Transactional
     public boolean deleteCar(String barcode){
         Optional<Car> carOptional = carRepository.findById(barcode);
         if (carOptional.isPresent()){

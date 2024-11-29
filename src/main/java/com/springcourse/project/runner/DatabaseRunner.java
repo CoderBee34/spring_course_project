@@ -65,8 +65,8 @@ public class DatabaseRunner implements CommandLineRunner {
 
         equipmentRepository.saveAll(Arrays.asList(equipment1, equipment2));
 
-        Car car1 = new Car("12345", "AB123CD", 4, "Toyota", "Corolla", 15000.5, "Automatic", 50.0, CarType.STANDARD, CarStatus.AVAILABLE);
-        Car car2 = new Car("67890", "EF456GH", 7, "Ford", "Explorer", 12000.3, "Manual", 70.0, CarType.SUV, CarStatus.RESERVED);
+        Car car1 = new Car("12345", "AB123CD", 4, "Toyota", "Corolla", 15000.5, "Automatic", 50.0, CarType.STANDARD, CarStatus.LOANED);
+        Car car2 = new Car("67890", "EF456GH", 7, "Ford", "Explorer", 12000.3, "Manual", 70.0, CarType.SUV, CarStatus.AVAILABLE);
         carRepository.saveAll(Arrays.asList(car1, car2));
 
         Member member = new Member();

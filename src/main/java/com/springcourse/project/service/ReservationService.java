@@ -6,6 +6,7 @@ import com.springcourse.project.repository.CarRepository;
 import com.springcourse.project.repository.LocationRepository;
 import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class ReservationService {
     public List<ReservationDTO> allReservations() {
         return reservationRepository.findAll().stream().map(reservation -> new ReservationDTO(reservation)).toList();
     }
+    @Transactional
     public ReservationDTO makeReservation(String carBarcode, int dayCount, long memberID, int pickUpLocationCode, int dropOffLocationCode, List<Equipment> equipmentList, List<ServiceModel> serviceList){
         Optional<Car> reservedCarOptional = carRepository.findById(carBarcode);
         if (reservedCarOptional.isPresent()){
@@ -55,6 +57,7 @@ public class ReservationService {
         return null;
     }
 
+    @Transactional
     public boolean cancelReservation(String reservationNumber){
         Optional<Reservation> reservationOptional = reservationRepository.findById(reservationNumber);
         if (reservationOptional.isPresent()){
@@ -67,6 +70,7 @@ public class ReservationService {
         return false;
     }
 
+    @Transactional
     public boolean deleteReservation(String reservationNumber){
         Car reservedCar = reservationRepository.findCarByReservationNumber(reservationNumber);
         if (reservedCar != null) {

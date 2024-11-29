@@ -21,5 +21,8 @@ public class ReservationServiceTests {
     void cancelReservationTest(){}
 
     @Test
-    void deleteReservation(){}
+    void deleteReservation(){
+        boolean result = reservationService.deleteReservation("7891234");
+        assertTrue(result);
+    }
 }

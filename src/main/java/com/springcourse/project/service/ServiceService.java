@@ -4,6 +4,7 @@ import com.springcourse.project.model.Reservation;
 import com.springcourse.project.model.ServiceModel;
 import com.springcourse.project.repository.ReservationRepository;
 import com.springcourse.project.repository.ServiceRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class ServiceService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Transactional
     public boolean addServiceToReservation(String reservationNumber, int serviceCode){
         Optional<ServiceModel> serviceOptional = serviceRepository.findById(serviceCode);
         if (serviceOptional.isPresent()){
