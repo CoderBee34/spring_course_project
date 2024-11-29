@@ -8,6 +8,7 @@ import com.springcourse.project.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,4 +41,20 @@ public class CarService {
         }
         return rentedCarDTOList;
     }
+
+    public boolean returnCar(String reservationNumber){
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationNumber);
+        if (reservationOptional.isPresent()){
+            Reservation reservation = reservationOptional.get();
+            Car car = reservation.getCar();
+            if (car != null){
+                carRepository.updateCarStatusByBarcode(CarStatus.AVAILABLE, car.getBarcode());
+                reservationRepository.updateReservationStatusById(ReservationStatus.COMPLETED, reservationNumber);
+                reservationRepository.updateReservationReturnDateById(LocalDate.now(), reservationNumber);
+            }
+            return false;
+        }
+        return false;
+    }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -16,5 +17,8 @@ public interface ReservationRepository extends JpaRepository<Reservation,String>
 
     @Modifying
     @Query("UPDATE Reservation r SET r.status = ?1 WHERE r.reservationNumber = ?2")
-    void updateCarStatusByBarcode(ReservationStatus status, String reservationNumber);
+    void updateReservationStatusById(ReservationStatus status, String reservationNumber);
+
+    @Query("UPDATE Reservation r SET r.returnDate = ?1 WHERE r.reservationNumber = ?2")
+    void updateReservationReturnDateById(LocalDate date, String reservationNumber);
 }
