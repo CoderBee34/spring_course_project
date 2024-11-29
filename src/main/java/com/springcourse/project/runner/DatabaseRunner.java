@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
 @Component
 public class DatabaseRunner implements CommandLineRunner {
@@ -42,12 +41,12 @@ public class DatabaseRunner implements CommandLineRunner {
         locationRepository.saveAll(Arrays.asList(location1, location2));
 
 
-        Service service1 = new Service();
+        ServiceModel service1 = new ServiceModel();
         service1.setId(1);
         service1.setName("GPS");
         service1.setPrice(5.0);
 
-        Service service2 = new Service();
+        ServiceModel service2 = new ServiceModel();
         service2.setId(2);
         service2.setName("Child Seat");
         service2.setPrice(10.0);

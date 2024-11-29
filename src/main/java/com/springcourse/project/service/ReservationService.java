@@ -1,6 +1,5 @@
 package com.springcourse.project.service;
 
-import com.springcourse.project.dto.LocationDTO;
 import com.springcourse.project.dto.ReservationDTO;
 import com.springcourse.project.model.*;
 import com.springcourse.project.repository.CarRepository;
@@ -28,7 +27,7 @@ public class ReservationService {
     public List<ReservationDTO> allReservations() {
         return reservationRepository.findAll().stream().map(reservation -> new ReservationDTO(reservation)).toList();
     }
-    public ReservationDTO makeReservation(String carBarcode, int dayCount, long memberID, int pickUpLocationCode, int dropOffLocationCode, List<Equipment> equipmentList, List<com.springcourse.project.model.Service> serviceList){
+    public ReservationDTO makeReservation(String carBarcode, int dayCount, long memberID, int pickUpLocationCode, int dropOffLocationCode, List<Equipment> equipmentList, List<ServiceModel> serviceList){
         Optional<Car> reservedCarOptional = carRepository.findById(carBarcode);
         if (reservedCarOptional.isPresent()){
             Car reservedCar = reservedCarOptional.get();

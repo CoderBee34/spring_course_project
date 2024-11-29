@@ -4,18 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Service {
+public class ServiceModel {
     @Id
     private int id;
     private String name;
     private double price;
 
 
-    public Service(String name, double price) {
+    public ServiceModel(String name, double price) {
         this.name = name;
         this.price = price;
     }
-    public Service() {
+    public ServiceModel() {
     }
 
     public String getName() {

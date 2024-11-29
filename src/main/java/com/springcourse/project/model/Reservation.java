@@ -38,7 +38,7 @@ public class Reservation {
     private List<Equipment> equipmentList;
 
     @ManyToMany
-    private List<Service> serviceList;
+    private List<ServiceModel> serviceList;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID", nullable = false)
@@ -145,11 +145,11 @@ public class Reservation {
         this.equipmentList = equipmentList;
     }
 
-    public List<Service> getServiceList() {
+    public List<ServiceModel> getServiceList() {
         return serviceList;
     }
 
-    public void setServiceList(List<Service> serviceList) {
+    public void setServiceList(List<ServiceModel> serviceList) {
         this.serviceList = serviceList;
     }
 
