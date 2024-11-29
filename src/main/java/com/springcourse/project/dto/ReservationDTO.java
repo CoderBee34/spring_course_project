@@ -1,6 +1,8 @@
 package com.springcourse.project.dto;
 
 import com.springcourse.project.model.Location;
+import com.springcourse.project.model.Reservation;
+import org.h2.command.ddl.CreateRole;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -10,14 +12,23 @@ public class ReservationDTO {
     private String reservationNumber;
     private LocalDate pickUpDateTime;
     private LocalDate dropOffDateTime;
-    private Location pickUpLocation;
-    private Location dropOffLocation;
+    private LocationDTO pickUpLocation;
+    private LocationDTO dropOffLocation;
     private double totalAmount;
 
     public ReservationDTO() {
     }
+    public ReservationDTO(Reservation reservation){
+        this.reservationNumber = reservation.getReservationNumber();
+        this.pickUpDateTime = reservation.getPickUpDateTime();
+        this.dropOffDateTime = reservation.getDropOffDateTime();
+        this.pickUpLocation = new LocationDTO(reservation.getPickUpLocation());
+        this.dropOffLocation = new LocationDTO(reservation.getDropOffLocation());
+        this.totalAmount = reservation.getTotalAmount();
 
-    public ReservationDTO(String reservationNumber, LocalDate pickUpDateTime, LocalDate dropOffDateTime, Location pickUpLocation, Location dropOffLocation, double totalAmount) {
+    }
+
+    public ReservationDTO(String reservationNumber, LocalDate pickUpDateTime, LocalDate dropOffDateTime, LocationDTO pickUpLocation, LocationDTO dropOffLocation, double totalAmount) {
         this.reservationNumber = reservationNumber;
         this.pickUpDateTime = pickUpDateTime;
         this.dropOffDateTime = dropOffDateTime;
@@ -50,19 +61,19 @@ public class ReservationDTO {
         this.dropOffDateTime = dropOffDateTime;
     }
 
-    public Location getPickUpLocation() {
+    public LocationDTO getPickUpLocation() {
         return pickUpLocation;
     }
 
-    public void setPickUpLocation(Location pickUpLocation) {
+    public void setPickUpLocation(LocationDTO pickUpLocation) {
         this.pickUpLocation = pickUpLocation;
     }
 
-    public Location getDropOffLocation() {
+    public LocationDTO getDropOffLocation() {
         return dropOffLocation;
     }
 
-    public void setDropOffLocation(Location dropOffLocation) {
+    public void setDropOffLocation(LocationDTO dropOffLocation) {
         this.dropOffLocation = dropOffLocation;
     }
 

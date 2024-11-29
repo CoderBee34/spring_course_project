@@ -1,5 +1,6 @@
 package com.springcourse.project.service;
 
+import com.springcourse.project.dto.LocationDTO;
 import com.springcourse.project.dto.ReservationDTO;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.repository.ReservationRepository;
@@ -14,12 +15,6 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
 
     public List<ReservationDTO> allReservations() {
-        return reservationRepository.findAll().stream().map(reservation -> new ReservationDTO(
-                reservation.getReservationNumber(),
-                reservation.getPickUpDateTime(),
-                reservation.getDropOffDateTime(),
-                reservation.getPickUpLocation(),
-                reservation.getDropOffLocation(),
-                reservation.getTotalAmount())).toList();
+        return reservationRepository.findAll().stream().map(reservation -> new ReservationDTO(reservation)).toList();
     }
 }

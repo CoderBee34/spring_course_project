@@ -1,5 +1,6 @@
 package com.springcourse.project.dto;
 
+import com.springcourse.project.model.Car;
 import com.springcourse.project.model.CarType;
 
 public class CarDTO {
@@ -11,6 +12,14 @@ public class CarDTO {
     private String barcode;
 
     public CarDTO() {
+    }
+    public CarDTO(Car car) {
+        this.brand = car.getBrand();
+        this.model = car.getModel();
+        this.carType = car.getType();
+        this.mileage = car.getMileage();
+        this.transmissionType = car.getTransmissionType();
+        this.barcode = car.getBarcode();
     }
 
     public CarDTO(String brand, String model, CarType carType, double mileage, String transmissionType, String barcode) {
