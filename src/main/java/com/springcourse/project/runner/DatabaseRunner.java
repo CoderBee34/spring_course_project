@@ -78,7 +78,7 @@ public class DatabaseRunner implements CommandLineRunner {
         memberRepository.save(member);
 
         Reservation reservation = new Reservation();
-        reservation.setReservationNumber("7891234");
+        reservation.setReservationNumber("78912341");
         reservation.setCar(car1);
         reservation.setCreationDate(LocalDate.now());
         reservation.setPickUpDateTime(LocalDate.now().plusDays(5));

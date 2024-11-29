@@ -1,6 +1,7 @@
 package com.springcourse.project.model;
 
 import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -172,6 +173,10 @@ public class Reservation {
     public double getTotalAmount() {
         long timeDiffInDays = Period.between(pickUpDateTime, dropOffDateTime).getDays();
         double totalAmount = timeDiffInDays * car.getDailyPrice();
+        for(Equipment equipment : equipmentList)
+            totalAmount += equipment.getPrice();
+        for (ServiceModel serviceModel : serviceList)
+            totalAmount += serviceModel.getPrice();
         return totalAmount;
     }
 
