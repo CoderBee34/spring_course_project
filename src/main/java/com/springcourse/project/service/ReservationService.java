@@ -40,7 +40,7 @@ public class ReservationService {
                     reservedCar,
                     LocalDate.now(),
                     LocalDate.now().plusDays(1),
-                    LocalDate.now().plusDays(1+dayCount),
+                    LocalDate.now().plusDays(1 + dayCount),
                     locationRepository.findById(pickUpLocationCode).get(),
                     locationRepository.findById(dropOffLocationCode).get(),
                     null,
@@ -53,5 +53,17 @@ public class ReservationService {
             return new ReservationDTO(newReservation);
         }
         return null;
+    }
+
+    public boolean cancelReservation(String reservationNumber){
+        Optional<Reservation> reservationOptional = reservationRepository.findById(reservationNumber);
+        if (reservationOptional.isPresent()){
+            Reservation reservation = reservationOptional.get();
+            Car reservedCar = reservation.getCar();
+            reservationRepository.updateReservationStatusById(ReservationStatus.CANCELLED, reservationNumber);
+            carRepository.updateCarStatusByBarcode(CarStatus.AVAILABLE, reservedCar.getBarcode());
+            return true;
+        }
+        return false;
     }
 }
