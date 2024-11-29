@@ -19,4 +19,8 @@ public interface CarRepository extends JpaRepository<Car,String> {
     @Query("UPDATE Car c SET c.status = ?1 WHERE c.barcode = ?2")
     void updateCarStatusByBarcode(CarStatus status, String barcode);
 
+    @Modifying
+    @Query("DELETE Car c WHERE c.barcode = ?1")
+    void deleteCarByBarcode(String barcode);
+
 }

@@ -19,6 +19,11 @@ public interface ReservationRepository extends JpaRepository<Reservation,String>
     @Query("UPDATE Reservation r SET r.status = ?1 WHERE r.reservationNumber = ?2")
     void updateReservationStatusById(ReservationStatus status, String reservationNumber);
 
+    @Modifying
     @Query("UPDATE Reservation r SET r.returnDate = ?1 WHERE r.reservationNumber = ?2")
     void updateReservationReturnDateById(LocalDate date, String reservationNumber);
+
+    @Modifying
+    @Query("DELETE Reservation r WHERE r.reservationNumber = ?1")
+    void deleteReservationById(String reservationNumber);
 }
