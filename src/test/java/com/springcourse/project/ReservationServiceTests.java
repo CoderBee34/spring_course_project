@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = ProjectApplication.class)
@@ -15,14 +17,19 @@ public class ReservationServiceTests {
     ReservationService reservationService;
 
     @Test
-    void makeReservationTest(){}
+    void makeReservationTest(){
+        reservationService.makeReservation("67890",12,1,1,1, null,null);
+    }
 
     @Test
-    void cancelReservationTest(){}
+    void cancelReservationTest(){
+        boolean result = reservationService.cancelReservation("78912341");
+        assertTrue(result);
+    }
 
     @Test
     void deleteReservation(){
-        boolean result = reservationService.deleteReservation("7891234");
+        boolean result = reservationService.deleteReservation("78912341");
         assertTrue(result);
     }
 }

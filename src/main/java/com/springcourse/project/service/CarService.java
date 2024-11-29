@@ -41,6 +41,7 @@ public class CarService {
         return rentedCarDTOList;
     }
 
+    @Transactional
     public boolean returnCar(String reservationNumber){
         Optional<Reservation> reservationOptional = reservationRepository.findById(reservationNumber);
         if (reservationOptional.isPresent()){

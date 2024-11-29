@@ -49,8 +49,10 @@ public class ReservationService {
                     ReservationStatus.PENDING,
                     memberRepository.findById(memberID).get()
             );
-            newReservation.setEquipmentList(equipmentList);
-            newReservation.setServiceList(serviceList);
+            if (equipmentList != null)
+                newReservation.setEquipmentList(equipmentList);
+            if (serviceList != null)
+                newReservation.setServiceList(serviceList);
             reservationRepository.save(newReservation);
             return new ReservationDTO(newReservation);
         }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -36,10 +37,10 @@ public class Reservation {
     private ReservationStatus status;
 
     @ManyToMany
-    private List<Equipment> equipmentList;
+    private List<Equipment> equipmentList = new ArrayList<>();
 
     @ManyToMany
-    private List<ServiceModel> serviceList;
+    private List<ServiceModel> serviceList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID", nullable = false)

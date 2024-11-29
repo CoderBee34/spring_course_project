@@ -33,9 +33,14 @@ public class CarServiceTests {
     }
 
     @Test
-    void returnCarTest(){}
+    void returnCarTest(){
+        carService.returnCar("78912341");
+    }
 
     @Test
-    void deleteCarTest(){}
+    void deleteCarTest(){
+        boolean result1 = carService.returnCar("78912341");
+        carService.deleteCar("12345");
+    }
 
 }
