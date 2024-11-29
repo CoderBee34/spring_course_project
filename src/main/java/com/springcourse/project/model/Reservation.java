@@ -47,7 +47,8 @@ public class Reservation {
     @Transient
     private double totalAmount;
 
-    public Reservation(LocalDate creationDate, LocalDate pickUpDateTime, LocalDate dropOffDateTime, Location pickUpLocation, Location dropOffLocation, LocalDate returnDate, ReservationStatus status, Member member) {
+    public Reservation(Car car, LocalDate creationDate, LocalDate pickUpDateTime, LocalDate dropOffDateTime, Location pickUpLocation, Location dropOffLocation, LocalDate returnDate, ReservationStatus status, Member member) {
+        this.car = car;
         this.reservationNumber = reservationNumberGenerator();
         this.creationDate = creationDate;
         this.pickUpDateTime = pickUpDateTime;

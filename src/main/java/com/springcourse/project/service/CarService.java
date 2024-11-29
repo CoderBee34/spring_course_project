@@ -19,5 +19,8 @@ public class CarService {
         List<Car> queryResult = carRepository.findByStatusAndTypeAndTransmissionType(CarStatus.fromString("Available"), CarType.fromString(carType), transmissionType);
         List<CarDTO> returnValue = queryResult.stream().map(car -> new CarDTO(car)).toList();
         return returnValue;
-}
+    }
+    public void updateCarStatus(String barcode, CarStatus newStatus) {
+        carRepository.updateCarStatusByBarcode(newStatus, barcode);
+    }
 }
