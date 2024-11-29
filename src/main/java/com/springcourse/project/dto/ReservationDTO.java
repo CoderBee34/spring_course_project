@@ -1,11 +1,8 @@
 package com.springcourse.project.dto;
 
-import com.springcourse.project.model.Location;
 import com.springcourse.project.model.Reservation;
-import org.h2.command.ddl.CreateRole;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class ReservationDTO {
 
