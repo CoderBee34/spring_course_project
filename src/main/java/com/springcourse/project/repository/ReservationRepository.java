@@ -1,5 +1,7 @@
 package com.springcourse.project.repository;
 
+import com.springcourse.project.model.Car;
+import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.model.ReservationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +31,11 @@ public interface ReservationRepository extends JpaRepository<Reservation,String>
 
     @Query("SELECT r FROM Reservation r WHERE r.car.barcode = ?1")
     List<Reservation> findReservationsByCarBarcode(String carBarcode);
+
+    @Query("SELECT r.car FROM Reservation r WHERE r.reservationNumber = ?1")
+    List<Car> findCarsByReservationNumber(String reservationNumber);
+
+    @Query("SELECT r.member FROM Reservation r WHERE r.reservationNumber = ?1")
+    List<Member> findMembersByReservationNumber(String reservationNumber);
+
 }

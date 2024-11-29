@@ -66,4 +66,10 @@ public class ReservationService {
         }
         return false;
     }
+
+    public boolean deleteReservation(String reservationNumber){
+
+
+        return false;
+    }
 }

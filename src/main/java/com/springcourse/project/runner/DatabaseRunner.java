@@ -90,7 +90,6 @@ public class DatabaseRunner implements CommandLineRunner {
         reservation.setEquipmentList(Arrays.asList(equipment1));
         reservation.setServiceList(Arrays.asList(service2));
         reservation.setMember(member);
-        member.getReservationList().add(reservation);
         reservationRepository.save(reservation);
 
         memberRepository.save(member);

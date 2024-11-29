@@ -23,13 +23,6 @@ public class Member {
     @Column(name = "DRIVING_LICENSE_ID")
     private String drivingLicenseId;
 
-    @OneToMany( )
-    @JoinTable(name = "REL_MEMBER_RESERVATION",
-            joinColumns = @JoinColumn(name = "MEMBER_ID", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "RESERVATION_ID", referencedColumnName = "reservationNumber"))
-    private List<Reservation> reservationList = new ArrayList<>();
-
-
     public Member() {
     }
 
@@ -87,14 +80,6 @@ public class Member {
 
     public void setDrivingLicenseId(String drivingLicenseNumber) {
         this.drivingLicenseId = drivingLicenseNumber;
-    }
-
-    public List<Reservation> getReservationList() {
-        return reservationList;
-    }
-
-    public void setReservationList(List<Reservation> reservationList) {
-        this.reservationList = reservationList;
     }
 
 
