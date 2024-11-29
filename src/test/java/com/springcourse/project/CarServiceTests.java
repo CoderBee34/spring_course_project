@@ -20,8 +20,16 @@ public class CarServiceTests {
     @Test
     void searchAvailableCarTest(){
         List<AvailableCarDTO> carDTOList=  carService.searchAvailableCars("Standard", "Automatic");
-        //assertEquals(carDTOList.get(0).getBarcode(),"12345");
         assertNotNull(carDTOList);
     }
+
+    @Test
+    void getRentedCarsTest(){}
+
+    @Test
+    void returnCarTest(){}
+
+    @Test
+    void deleteCarTest(){}
 
 }

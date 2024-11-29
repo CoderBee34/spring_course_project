@@ -25,9 +25,6 @@ public class CarService {
         List<AvailableCarDTO> returnValue = queryResult.stream().map(car -> new AvailableCarDTO(car)).toList();
         return returnValue;
     }
-    public void updateCarStatus(String barcode, CarStatus newStatus) {
-        carRepository.updateCarStatusByBarcode(newStatus, barcode);
-    }
 
     public List<RentedCarDTO> getRentedCars(){
         List<RentedCarDTO> rentedCarDTOList = new ArrayList<>();
