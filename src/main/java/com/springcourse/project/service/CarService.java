@@ -51,6 +51,7 @@ public class CarService {
                 carRepository.updateCarStatusByBarcode(CarStatus.AVAILABLE, car.getBarcode());
                 reservationRepository.updateReservationStatusById(ReservationStatus.COMPLETED, reservationNumber);
                 reservationRepository.updateReservationReturnDateById(LocalDate.now(), reservationNumber);
+                return true;
             }
             return false;
         }
