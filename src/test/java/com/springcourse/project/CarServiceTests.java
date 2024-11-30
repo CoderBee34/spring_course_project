@@ -3,10 +3,12 @@ package com.springcourse.project;
 import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.model.Car;
+import com.springcourse.project.model.Member;
 import com.springcourse.project.model.CarStatus;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.model.ReservationStatus;
 import com.springcourse.project.repository.CarRepository;
+import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
 import com.springcourse.project.service.CarService;
 import org.junit.jupiter.api.Test;
@@ -29,7 +31,8 @@ public class CarServiceTests {
     ReservationRepository reservationRepository;
     @Autowired
     CarRepository carRepository;
-
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     void searchAvailableCarTest(){
@@ -39,10 +42,33 @@ public class CarServiceTests {
 
     @Test
     void getRentedCarsTest(){
-        List<RentedCarDTO> rentedCarDTOList = carService.getRentedCars();
-        RentedCarDTO obj = rentedCarDTOList.get(0);
-        assertEquals(obj.getBarcode(), "12345");
+        // Create a sample car
+        Car sampleCar = new Car();
+        sampleCar.setBarcode("12345");
+        sampleCar.setStatus(CarStatus.LOANED);
+        carRepository.save(sampleCar);
 
+        // Create a sample member
+        Member sampleMember = new Member();
+        sampleMember.setName("John Doe");
+        // Set other required member properties
+        memberRepository.save(sampleMember);
+
+        // Create a sample reservation
+        Reservation sampleReservation = new Reservation();
+        sampleReservation.setReservationNumber("78912341");
+        sampleReservation.setCar(sampleCar);
+        sampleReservation.setMember(sampleMember);
+        sampleReservation.setStatus(ReservationStatus.ACTIVE);
+        reservationRepository.save(sampleReservation);
+
+        // Retrieve rented cars
+        List<RentedCarDTO> rentedCarDTOList = carService.getRentedCars();
+
+        // Verify the rented car is in the list
+        assertFalse(rentedCarDTOList.isEmpty());
+        RentedCarDTO rentedCarDTO = rentedCarDTOList.get(0);
+        assertEquals(rentedCarDTO.getBarcode(), "12345");
     }
 
     @Test
