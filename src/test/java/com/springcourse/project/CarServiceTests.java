@@ -44,6 +44,7 @@ public class CarServiceTests {
     @Test
     void returnCarTest(){
         String sampleReservationId = "78912341";
+
         Optional<Reservation> sampleReservationOptional = reservationRepository.findById(sampleReservationId);
         Reservation sampleReservation = sampleReservationOptional.get();
         Car sampleCar = sampleReservation.getCar();
@@ -51,12 +52,13 @@ public class CarServiceTests {
         assertEquals(sampleCar.getStatus(), CarStatus.LOANED);
         assertEquals(sampleReservation.getStatus(), ReservationStatus.PENDING);
 
-        carService.returnCar(sampleReservationId);
+        boolean result = carService.returnCar(sampleReservationId);
 
         sampleReservationOptional = reservationRepository.findById(sampleReservationId);
         sampleReservation = sampleReservationOptional.get();
         sampleCar = sampleReservation.getCar();
 
+        assertTrue(result);
         assertEquals(sampleCar.getStatus(), CarStatus.AVAILABLE);
         assertEquals(sampleReservation.getStatus(), ReservationStatus.COMPLETED);
 
