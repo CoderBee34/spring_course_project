@@ -65,7 +65,7 @@ public class CarService {
             Car car = carOptional.get();
             if (car.getStatus() == CarStatus.AVAILABLE){
                 List<Reservation> reservationList = reservationRepository.findReservationsByCarBarcode(barcode);
-                if (reservationList.size() == 0){
+                if (reservationList.isEmpty()){
                     carRepository.deleteCarByBarcode(barcode);
                     return true;
                 }

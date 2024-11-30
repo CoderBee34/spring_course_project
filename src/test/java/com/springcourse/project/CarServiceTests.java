@@ -6,6 +6,7 @@ import com.springcourse.project.model.Car;
 import com.springcourse.project.model.CarStatus;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.model.ReservationStatus;
+import com.springcourse.project.repository.CarRepository;
 import com.springcourse.project.repository.ReservationRepository;
 import com.springcourse.project.service.CarService;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,9 @@ public class CarServiceTests {
     CarService carService;
     @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
+    CarRepository carRepository;
+
 
     @Test
     void searchAvailableCarTest(){
@@ -65,9 +69,26 @@ public class CarServiceTests {
     }
 
     @Test
-    void deleteCarTest(){
-        boolean result1 = carService.returnCar("78912341");
-        carService.deleteCar("12345");
+    void deleteCarTest() {
+        String sampleCarBarcode = "12345";
+
+        // Ensure the car is available
+        Optional<Car> carOptional = carRepository.findById(sampleCarBarcode);
+        assertTrue(carOptional.isPresent());
+        Car sampleCar = carOptional.get();
+        sampleCar.setStatus(CarStatus.AVAILABLE);
+        carRepository.save(sampleCar);
+
+        // Ensure there are no reservations for the car
+        reservationRepository.deleteAll(reservationRepository.findReservationsByCarBarcode(sampleCarBarcode));
+
+        // Delete the car
+        boolean deleteResult = carService.deleteCar(sampleCarBarcode);
+        assertTrue(deleteResult);
+
+        // Verify the car is deleted
+        carOptional = carRepository.findById(sampleCarBarcode);
+        assertFalse(carOptional.isPresent());
     }
 
 }
