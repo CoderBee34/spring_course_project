@@ -97,7 +97,7 @@ public class CarServiceTests {
         Car sampleCar = sampleReservation.getCar();
 
         assertEquals(sampleCar.getStatus(), CarStatus.LOANED);
-        assertEquals(sampleReservation.getStatus(), ReservationStatus.PENDING);
+        assertEquals(sampleReservation.getStatus(), ReservationStatus.CONFIRMED);
 
         boolean result = carService.returnCar(sampleReservationId);
 
