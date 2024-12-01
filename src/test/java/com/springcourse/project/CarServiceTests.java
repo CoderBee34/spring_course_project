@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,48 +91,122 @@ public class CarServiceTests {
 
     @Test
     void returnCarTest(){
-        String sampleReservationId = "78912341";
+        // Create a sample car
+        Car sampleCar = new Car();
+        sampleCar.setBarcode("12345");
+        sampleCar.setStatus(CarStatus.LOANED);
+        carRepository.save(sampleCar);
 
-        Optional<Reservation> sampleReservationOptional = reservationRepository.findById(sampleReservationId);
-        Reservation sampleReservation = sampleReservationOptional.get();
-        Car sampleCar = sampleReservation.getCar();
+        // Create a sample member
+        Member sampleMember = new Member();
+        sampleMember.setId(1L);
+        sampleMember.setName("John Doe");
+        memberRepository.save(sampleMember);
 
-        assertEquals(sampleCar.getStatus(), CarStatus.LOANED);
-        assertEquals(sampleReservation.getStatus(), ReservationStatus.CONFIRMED);
+        // Create a sample reservation
+        Reservation sampleReservation = new Reservation();
+        sampleReservation.setReservationNumber("78912341");
+        sampleReservation.setCar(sampleCar);
+        sampleReservation.setMember(sampleMember);
+        sampleReservation.setStatus(ReservationStatus.ACTIVE);
+        reservationRepository.save(sampleReservation);
 
-        boolean result = carService.returnCar(sampleReservationId);
+        // Verify initial status
+        assertEquals(CarStatus.LOANED, sampleCar.getStatus());
+        assertEquals(ReservationStatus.ACTIVE, sampleReservation.getStatus());
 
-        sampleReservationOptional = reservationRepository.findById(sampleReservationId);
-        sampleReservation = sampleReservationOptional.get();
-        sampleCar = sampleReservation.getCar();
+        // Return the car
+        boolean result = carService.returnCar("78912341");
 
+        // Verify the car status is updated to AVAILABLE
+        Optional<Car> carOptional = carRepository.findById("12345");
+        assertTrue(carOptional.isPresent());
+        Car car = carOptional.get();
+        assertEquals(CarStatus.AVAILABLE, car.getStatus());
+
+        // Verify the reservation status is updated to COMPLETED
+        Optional<Reservation> reservationOptional = reservationRepository.findById("78912341");
+        assertTrue(reservationOptional.isPresent());
+        Reservation reservation = reservationOptional.get();
+        assertEquals(ReservationStatus.COMPLETED, reservation.getStatus());
+
+        // Verify the return date is set to today
+        assertEquals(LocalDate.now(), reservation.getReturnDate());
+
+        // Verify the result is true
         assertTrue(result);
-        assertEquals(sampleCar.getStatus(), CarStatus.AVAILABLE);
-        assertEquals(sampleReservation.getStatus(), ReservationStatus.COMPLETED);
 
+        // Test case: Reservation number does not exist
+        boolean resultNonExistentReservation = carService.returnCar("nonExistentReservation");
+        assertFalse(resultNonExistentReservation);
+
+        // Test case: Car is not found
+        Reservation reservationWithoutCar = new Reservation();
+        reservationWithoutCar.setReservationNumber("78912342");
+        reservationWithoutCar.setMember(sampleMember);
+        reservationWithoutCar.setStatus(ReservationStatus.ACTIVE);
+        reservationRepository.save(reservationWithoutCar);
+
+        boolean resultCarNotFound = carService.returnCar("78912342");
+        assertFalse(resultCarNotFound);
     }
 
     @Test
     void deleteCarTest() {
-        String sampleCarBarcode = "12345";
-
-        // Ensure the car is available
-        Optional<Car> carOptional = carRepository.findById(sampleCarBarcode);
-        assertTrue(carOptional.isPresent());
-        Car sampleCar = carOptional.get();
+        // Create a sample car
+        Car sampleCar = new Car();
+        sampleCar.setBarcode("123456");
         sampleCar.setStatus(CarStatus.AVAILABLE);
         carRepository.save(sampleCar);
 
+        // Ensure the car is available
+        Optional<Car> carOptional = carRepository.findById("123456");
+        assertTrue(carOptional.isPresent());
+        Car car = carOptional.get();
+        assertEquals(CarStatus.AVAILABLE, car.getStatus());
+
         // Ensure there are no reservations for the car
-        reservationRepository.deleteAll(reservationRepository.findReservationsByCarBarcode(sampleCarBarcode));
+        List<Reservation> reservations = reservationRepository.findReservationsByCarBarcode("123456");
+        assertTrue(reservations.isEmpty());
 
         // Delete the car
-        boolean deleteResult = carService.deleteCar(sampleCarBarcode);
+        boolean deleteResult = carService.deleteCar("123456");
         assertTrue(deleteResult);
 
         // Verify the car is deleted
-        carOptional = carRepository.findById(sampleCarBarcode);
+        carOptional = carRepository.findById("123456");
         assertFalse(carOptional.isPresent());
+
+        // Test case: Car is not available
+        Car loanedCar = new Car();
+        loanedCar.setBarcode("67890");
+        loanedCar.setStatus(CarStatus.LOANED);
+        carRepository.save(loanedCar);
+
+        boolean deleteLoanedCarResult = carService.deleteCar("67890");
+        assertFalse(deleteLoanedCarResult);
+
+        // Test case: Car has reservations
+        Car reservedCar = new Car();
+        reservedCar.setBarcode("11223");
+        reservedCar.setStatus(CarStatus.AVAILABLE);
+        carRepository.save(reservedCar);
+
+        // Create a sample member
+        Member sampleMember = new Member();
+        sampleMember.setId(1L);
+        sampleMember.setName("John Doe");
+        memberRepository.save(sampleMember);
+
+        Reservation reservation = new Reservation();
+        reservation.setReservationNumber("78912341");
+        reservation.setCar(reservedCar);
+        reservation.setStatus(ReservationStatus.ACTIVE);
+        reservation.setMember(sampleMember);
+        reservationRepository.save(reservation);
+
+        boolean deleteReservedCarResult = carService.deleteCar("11223");
+        assertFalse(deleteReservedCarResult);
     }
 
 }
