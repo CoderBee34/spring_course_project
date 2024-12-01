@@ -9,11 +9,6 @@ public class LocationDTO {
     public LocationDTO() {
     }
 
-    public LocationDTO(int code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
     public LocationDTO(Location location) {
         this.code = location.getCode();
         this.name = location.getName();

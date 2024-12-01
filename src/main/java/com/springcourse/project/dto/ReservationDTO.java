@@ -25,15 +25,6 @@ public class ReservationDTO {
 
     }
 
-    public ReservationDTO(String reservationNumber, LocalDate pickUpDateTime, LocalDate dropOffDateTime, LocationDTO pickUpLocation, LocationDTO dropOffLocation, double totalAmount) {
-        this.reservationNumber = reservationNumber;
-        this.pickUpDateTime = pickUpDateTime;
-        this.dropOffDateTime = dropOffDateTime;
-        this.pickUpLocation = pickUpLocation;
-        this.dropOffLocation = dropOffLocation;
-        this.totalAmount = totalAmount;
-    }
-
     public String getReservationNumber() {
         return reservationNumber;
     }

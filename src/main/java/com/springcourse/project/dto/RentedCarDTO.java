@@ -38,22 +38,8 @@ public class RentedCarDTO {
         if (pickUpDateTime != null && dropOffDateTime != null) {
             this.reservationDayCount = Period.between(pickUpDateTime, dropOffDateTime).getDays();
         } else {
-            this.reservationDayCount = 0; // or handle it as needed
+            this.reservationDayCount = 0;
         }
-        //this.reservationDayCount = Period.between(reservation.getPickUpDateTime(),dropOffDateTime).getDays();
-    }
-
-    public RentedCarDTO(String barcode, String brand, String model, String transmissionType, CarType type, String reservationNumber, String memberName, LocalDate dropOffDateTime, Location dropOffLocation, int reservationDayCount) {
-        this.barcode = barcode;
-        this.brand = brand;
-        this.model = model;
-        this.transmissionType = transmissionType;
-        this.type = type;
-        this.reservationNumber = reservationNumber;
-        this.memberName = memberName;
-        this.dropOffDateTime = dropOffDateTime;
-        this.dropOffLocation = dropOffLocation;
-        this.reservationDayCount = reservationDayCount;
     }
 
     public String getBarcode() {
