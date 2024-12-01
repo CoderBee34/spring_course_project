@@ -22,10 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EquipmentServiceTests {
     @Autowired
     EquipmentService equipmentService;
-    @Autowired
-    ReservationRepository reservationRepository;
-    @Autowired
-    MemberRepository memberRepository;
 
     @Test
     @Transactional
@@ -34,7 +30,7 @@ public class EquipmentServiceTests {
         Member sampleMember = new Member();
         sampleMember.setId(1L);
         sampleMember.setName("John Doe");
-        memberRepository.save(sampleMember);
+        equipmentService.saveMemberForTest(sampleMember);
 
         // Create a sample equipment
         Equipment sampleEquipment = equipmentService.createEquipment(1,"Sample Equipment",50.0);
@@ -43,7 +39,7 @@ public class EquipmentServiceTests {
         Reservation sampleReservation = new Reservation();
         sampleReservation.setReservationNumber("78912341");
         sampleReservation.setMember(sampleMember); // Set the member
-        reservationRepository.save(sampleReservation);
+        equipmentService.saveReservationForTest(sampleReservation);
 
         // Add equipment to reservation
         boolean result = equipmentService.addEquipmentToReservation("78912341", 1);
@@ -58,7 +54,7 @@ public class EquipmentServiceTests {
         assertFalse(result3);
 
         // Retrieve the updated reservation
-        Optional<Reservation> updatedReservationOptional = reservationRepository.findById("78912341");
+        Optional<Reservation> updatedReservationOptional = equipmentService.findReservationByIdForTest("78912341");
         assertTrue(updatedReservationOptional.isPresent());
         Reservation updatedReservation = updatedReservationOptional.get();
 

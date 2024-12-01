@@ -1,8 +1,10 @@
 package com.springcourse.project.service;
 
 import com.springcourse.project.model.Equipment;
+import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.repository.EquipmentRepository;
+import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class EquipmentService {
     private EquipmentRepository equipmentRepository;
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Transactional
     public boolean addEquipmentToReservation(String reservationNumber, int equipmentCode){
@@ -51,6 +55,15 @@ public class EquipmentService {
         equipment.setPrice(price);
         equipmentRepository.save(equipment);
         return equipment;
+    }
+    public void saveReservationForTest(Reservation reservation){
+        reservationRepository.save(reservation);
+    }
+    public Optional<Reservation> findReservationByIdForTest(String id){
+        return reservationRepository.findById(id);
+    }
+    public void saveMemberForTest(Member member){
+        memberRepository.save(member);
     }
 
 }
