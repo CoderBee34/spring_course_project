@@ -46,7 +46,7 @@ public class ReservationService {
                     locationRepository.findById(pickUpLocationCode).get(),
                     locationRepository.findById(dropOffLocationCode).get(),
                     null,
-                    ReservationStatus.PENDING,
+                    ReservationStatus.CONFIRMED,
                     memberRepository.findById(memberID).get()
             );
             if (equipmentList != null)
