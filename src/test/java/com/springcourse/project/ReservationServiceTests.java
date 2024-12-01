@@ -22,8 +22,6 @@ public class ReservationServiceTests {
     @Autowired
     ReservationService reservationService;
     @Autowired
-    ReservationRepository reservationRepository;
-    @Autowired
     CarRepository carRepository;
     @Autowired
     MemberRepository memberRepository;
@@ -136,7 +134,7 @@ public class ReservationServiceTests {
         sampleReservation.setStatus(ReservationStatus.ACTIVE);
         sampleReservation.setCar(sampleCar);
         sampleReservation.setMember(sampleMember);
-        reservationRepository.save(sampleReservation);
+        reservationService.saveReservation(sampleReservation);
 
         // Cancel the reservation
         boolean result = reservationService.cancelReservation("78912341");
@@ -145,7 +143,7 @@ public class ReservationServiceTests {
         assertTrue(result);
 
         // Retrieve the updated reservation
-        Optional<Reservation> updatedReservationOptional = reservationRepository.findById("78912341");
+        Optional<Reservation> updatedReservationOptional = reservationService.findReservationById("78912341");
         assertTrue(updatedReservationOptional.isPresent());
         Reservation updatedReservation = updatedReservationOptional.get();
 
@@ -184,7 +182,7 @@ public class ReservationServiceTests {
         sampleReservation.setStatus(ReservationStatus.ACTIVE);
         sampleReservation.setCar(sampleCar);
         sampleReservation.setMember(sampleMember);
-        reservationRepository.save(sampleReservation);
+        reservationService.saveReservation(sampleReservation);
 
         // Delete the reservation
         boolean result = reservationService.deleteReservation("78912341");
@@ -193,7 +191,7 @@ public class ReservationServiceTests {
         assertTrue(result);
 
         // Verify the reservation no longer exists
-        Optional<Reservation> deletedReservationOptional = reservationRepository.findById("78912341");
+        Optional<Reservation> deletedReservationOptional = reservationService.findReservationById("78912341");
         assertFalse(deletedReservationOptional.isPresent());
 
         // Verify the car still exists and its status is updated to AVAILABLE

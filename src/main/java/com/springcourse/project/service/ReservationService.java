@@ -82,4 +82,13 @@ public class ReservationService {
         }
         return false;
     }
+    public Optional<Reservation> findReservationById(String id){
+        return reservationRepository.findById(id);
+    }
+
+    @Transactional
+    public void saveReservation(Reservation reservation){
+        reservationRepository.save(reservation);
+    }
+
 }
