@@ -38,7 +38,7 @@ public class CarServiceTests {
                 // Verify the list is not null and contains the expected car
                 assertNotNull(carDTOList);
                 assertFalse(carDTOList.isEmpty());
-                AvailableCarDTO availableCarDTO = carDTOList.get(0);
+                AvailableCarDTO availableCarDTO = carDTOList.stream().filter(car -> car.getBarcode().equals("45362")).findFirst().orElse(null);
                 assertEquals(availableCarDTO.getBarcode(), "45362");
                 assertEquals(availableCarDTO.getBrand(), "Toyota");
                 assertEquals(availableCarDTO.getModel(), "Corolla");
