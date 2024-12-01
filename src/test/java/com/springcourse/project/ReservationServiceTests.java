@@ -2,7 +2,6 @@ package com.springcourse.project;
 
 import com.springcourse.project.dto.ReservationDTO;
 import com.springcourse.project.model.*;
-import com.springcourse.project.repository.*;
 import com.springcourse.project.service.ReservationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ReservationServiceTests {
     @Autowired
     ReservationService reservationService;
-    @Autowired
-    CarRepository carRepository;
-    @Autowired
-    MemberRepository memberRepository;
-    @Autowired
-    LocationRepository locationRepository;
-    @Autowired
-    EquipmentRepository equipmentRepository;
-    @Autowired
-    ServiceRepository serviceRepository;
 
     @Test
     void makeReservationTest(){
@@ -38,38 +27,38 @@ public class ReservationServiceTests {
         Member sampleMember = new Member();
         sampleMember.setId(1L);
         sampleMember.setName("John Doe");
-        memberRepository.save(sampleMember);
+        reservationService.saveMemberForTest(sampleMember);
 
         // Create a sample car
         Car sampleCar = new Car();
         sampleCar.setBarcode("12345");
         sampleCar.setStatus(CarStatus.AVAILABLE);
         sampleCar.setDailyPrice(100.0);
-        carRepository.save(sampleCar);
+        reservationService.saveCarForTest(sampleCar);
 
         // Create sample locations
         Location pickUpLocation = new Location();
         pickUpLocation.setCode(1);
         pickUpLocation.setName("Location A");
-        locationRepository.save(pickUpLocation);
+        reservationService.saveLocationForTest(pickUpLocation);
 
         Location dropOffLocation = new Location();
         dropOffLocation.setCode(2);
         dropOffLocation.setName("Location B");
-        locationRepository.save(dropOffLocation);
+        reservationService.saveLocationForTest(dropOffLocation);
 
         // Create sample equipment
         Equipment equipment1 = new Equipment();
         equipment1.setId(1);
         equipment1.setName("GPS");
         equipment1.setPrice(10.0);
-        equipmentRepository.save(equipment1);
+        reservationService.saveEquipmentForTest(equipment1);
 
         Equipment equipment2 = new Equipment();
         equipment2.setId(2);
         equipment2.setName("Baby Seat");
         equipment2.setPrice(15.0);
-        equipmentRepository.save(equipment2);
+        reservationService.saveEquipmentForTest(equipment2);
 
         List<Equipment> equipmentList = Arrays.asList(equipment1, equipment2);
 
@@ -78,13 +67,13 @@ public class ReservationServiceTests {
         service1.setId(1);
         service1.setName("Insurance");
         service1.setPrice(20.0);
-        serviceRepository.save(service1);
+        reservationService.saveServiceForTest(service1);
 
         ServiceModel service2 = new ServiceModel();
         service2.setId(2);
         service2.setName("Roadside Assistance");
         service2.setPrice(5.0);
-        serviceRepository.save(service2);
+        reservationService.saveServiceForTest(service2);
 
         List<ServiceModel> serviceList = Arrays.asList(service1, service2);
 
@@ -103,7 +92,7 @@ public class ReservationServiceTests {
 
 
         // Verify the car status is updated to LOANED
-        Optional<Car> carOptional = carRepository.findById("12345");
+        Optional<Car> carOptional = reservationService.findCarByIdForTest("12345");
         assertTrue(carOptional.isPresent());
         Car car = carOptional.get();
         assertEquals(CarStatus.LOANED, car.getStatus());
@@ -120,13 +109,13 @@ public class ReservationServiceTests {
         Member sampleMember = new Member();
         sampleMember.setId(1L);
         sampleMember.setName("John Doe");
-        memberRepository.save(sampleMember);
+        reservationService.saveMemberForTest(sampleMember);
 
         // Create a sample car
         Car sampleCar = new Car();
         sampleCar.setBarcode("12345");
         sampleCar.setStatus(CarStatus.RESERVED);
-        carRepository.save(sampleCar);
+        reservationService.saveCarForTest(sampleCar);
 
         // Create a sample reservation
         Reservation sampleReservation = new Reservation();
@@ -168,13 +157,13 @@ public class ReservationServiceTests {
         Member sampleMember = new Member();
         sampleMember.setId(1L);
         sampleMember.setName("John Doe");
-        memberRepository.save(sampleMember);
+        reservationService.saveMemberForTest(sampleMember);
 
         // Create a sample car
         Car sampleCar = new Car();
         sampleCar.setBarcode("12345");
         sampleCar.setStatus(CarStatus.RESERVED);
-        carRepository.save(sampleCar);
+        reservationService.saveCarForTest(sampleCar);
 
         // Create a sample reservation
         Reservation sampleReservation = new Reservation();
@@ -195,13 +184,13 @@ public class ReservationServiceTests {
         assertFalse(deletedReservationOptional.isPresent());
 
         // Verify the car still exists and its status is updated to AVAILABLE
-        Optional<Car> carOptional = carRepository.findById(sampleCar.getBarcode());
+        Optional<Car> carOptional = reservationService.findCarByIdForTest(sampleCar.getBarcode());
         assertTrue(carOptional.isPresent());
         Car car = carOptional.get();
         assertEquals(CarStatus.AVAILABLE, car.getStatus());
 
         // Verify the member still exists
-        Optional<Member> memberOptional = memberRepository.findById(sampleMember.getId());
+        Optional<Member> memberOptional = reservationService.findMemberByIdForTest(sampleMember.getId());
         assertTrue(memberOptional.isPresent());
     }
 }

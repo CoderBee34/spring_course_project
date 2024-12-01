@@ -2,10 +2,7 @@ package com.springcourse.project.service;
 
 import com.springcourse.project.dto.ReservationDTO;
 import com.springcourse.project.model.*;
-import com.springcourse.project.repository.CarRepository;
-import com.springcourse.project.repository.LocationRepository;
-import com.springcourse.project.repository.MemberRepository;
-import com.springcourse.project.repository.ReservationRepository;
+import com.springcourse.project.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +16,15 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
     @Autowired
-    private CarRepository carRepository;
+    CarRepository carRepository;
     @Autowired
-    private LocationRepository locationRepository;
+    MemberRepository memberRepository;
     @Autowired
-    private MemberRepository memberRepository;
+    LocationRepository locationRepository;
+    @Autowired
+    EquipmentRepository equipmentRepository;
+    @Autowired
+    ServiceRepository serviceRepository;
 
     public List<ReservationDTO> allReservations() {
         return reservationRepository.findAll().stream().map(reservation -> new ReservationDTO(reservation)).toList();
@@ -89,6 +90,27 @@ public class ReservationService {
     @Transactional
     public void saveReservation(Reservation reservation){
         reservationRepository.save(reservation);
+    }
+    public void saveMemberForTest(Member member){
+        memberRepository.save(member);
+    }
+    public void saveCarForTest(Car car){
+        carRepository.save(car);
+    }
+    public void saveLocationForTest(Location location){
+        locationRepository.save(location);
+    }
+    public void saveEquipmentForTest(Equipment equipment){
+        equipmentRepository.save(equipment);
+    }
+    public void saveServiceForTest(ServiceModel serviceModel){
+        serviceRepository.save(serviceModel);
+    }
+    public Optional<Car> findCarByIdForTest(String barcode){
+        return carRepository.findById(barcode);
+    }
+    public Optional<Member> findMemberByIdForTest(Long id){
+        return memberRepository.findById(id);
     }
 
 }
