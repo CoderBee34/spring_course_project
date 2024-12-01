@@ -24,8 +24,6 @@ public class EquipmentServiceTests {
     @Autowired
     EquipmentService equipmentService;
     @Autowired
-    EquipmentRepository equipmentRepository;
-    @Autowired
     ReservationRepository reservationRepository;
     @Autowired
     MemberRepository memberRepository;
@@ -40,11 +38,7 @@ public class EquipmentServiceTests {
         memberRepository.save(sampleMember);
 
         // Create a sample equipment
-        Equipment sampleEquipment = new Equipment();
-        sampleEquipment.setId(1);
-        sampleEquipment.setName("Sample Equipment");
-        sampleEquipment.setPrice(50.0);
-        equipmentRepository.save(sampleEquipment);
+        Equipment sampleEquipment = equipmentService.createEquipment(1,"Sample Equipment",50.0);
 
         // Create a sample reservation
         Reservation sampleReservation = new Reservation();

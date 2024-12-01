@@ -42,4 +42,15 @@ public class EquipmentService {
         }
         return false;
     }
+
+    @Transactional
+    public Equipment createEquipment(int id, String name, double price){
+        Equipment equipment = new Equipment();
+        equipment.setId(id);
+        equipment.setName(name);
+        equipment.setPrice(price);
+        equipmentRepository.save(equipment);
+        return equipment;
+    }
+
 }
