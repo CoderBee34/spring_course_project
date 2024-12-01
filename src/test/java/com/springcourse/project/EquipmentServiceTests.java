@@ -3,7 +3,6 @@ package com.springcourse.project;
 import com.springcourse.project.model.Equipment;
 import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
-import com.springcourse.project.repository.EquipmentRepository;
 import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
 import com.springcourse.project.service.EquipmentService;

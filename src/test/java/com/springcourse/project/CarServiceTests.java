@@ -3,8 +3,6 @@ package com.springcourse.project;
 import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.model.*;
-import com.springcourse.project.repository.MemberRepository;
-import com.springcourse.project.repository.ReservationRepository;
 import com.springcourse.project.service.CarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +20,6 @@ import java.util.Optional;
 public class CarServiceTests {
     @Autowired
     CarService carService;
-    @Autowired
-    ReservationRepository reservationRepository;
-    @Autowired
-    MemberRepository memberRepository;
 
     @Test
     void searchAvailableCarTest(){
@@ -67,7 +61,7 @@ public class CarServiceTests {
         Member sampleMember = new Member();
         sampleMember.setName("John Doe");
         // Set other required member properties
-        memberRepository.save(sampleMember);
+        carService.saveMemberForTest(sampleMember);
 
         // Create a sample reservation
         Reservation sampleReservation = new Reservation();
@@ -75,7 +69,7 @@ public class CarServiceTests {
         sampleReservation.setCar(sampleCar);
         sampleReservation.setMember(sampleMember);
         sampleReservation.setStatus(ReservationStatus.ACTIVE);
-        reservationRepository.save(sampleReservation);
+        carService.saveReservationForTest(sampleReservation);
 
         // Retrieve rented cars
         List<RentedCarDTO> rentedCarDTOList = carService.getRentedCars();
@@ -101,7 +95,7 @@ public class CarServiceTests {
         Member sampleMember = new Member();
         sampleMember.setId(1L);
         sampleMember.setName("John Doe");
-        memberRepository.save(sampleMember);
+        carService.saveMemberForTest(sampleMember);
 
         // Create a sample reservation
         Reservation sampleReservation = new Reservation();
@@ -109,7 +103,7 @@ public class CarServiceTests {
         sampleReservation.setCar(sampleCar);
         sampleReservation.setMember(sampleMember);
         sampleReservation.setStatus(ReservationStatus.ACTIVE);
-        reservationRepository.save(sampleReservation);
+        carService.saveReservationForTest(sampleReservation);
 
         // Verify initial status
         assertEquals(CarStatus.LOANED, sampleCar.getStatus());
@@ -125,7 +119,7 @@ public class CarServiceTests {
         assertEquals(CarStatus.AVAILABLE, car.getStatus());
 
         // Verify the reservation status is updated to COMPLETED
-        Optional<Reservation> reservationOptional = reservationRepository.findById("78912341");
+        Optional<Reservation> reservationOptional = carService.findReservationByIdForTest("78912341");
         assertTrue(reservationOptional.isPresent());
         Reservation reservation = reservationOptional.get();
         assertEquals(ReservationStatus.COMPLETED, reservation.getStatus());
@@ -145,7 +139,7 @@ public class CarServiceTests {
         reservationWithoutCar.setReservationNumber("78912342");
         reservationWithoutCar.setMember(sampleMember);
         reservationWithoutCar.setStatus(ReservationStatus.ACTIVE);
-        reservationRepository.save(reservationWithoutCar);
+        carService.saveReservationForTest(reservationWithoutCar);
 
         boolean resultCarNotFound = carService.returnCar("78912342");
         assertFalse(resultCarNotFound);
@@ -169,7 +163,7 @@ public class CarServiceTests {
         assertEquals(CarStatus.AVAILABLE, car.getStatus());
 
         // Ensure there are no reservations for the car
-        List<Reservation> reservations = reservationRepository.findReservationsByCarBarcode("123456");
+        List<Reservation> reservations = carService.findReservationsByCarBarcode("123456");
         assertTrue(reservations.isEmpty());
 
         // Delete the car
@@ -207,14 +201,14 @@ public class CarServiceTests {
         Member sampleMember = new Member();
         sampleMember.setId(1L);
         sampleMember.setName("John Doe");
-        memberRepository.save(sampleMember);
+        carService.saveMemberForTest(sampleMember);
 
         Reservation reservation = new Reservation();
         reservation.setReservationNumber("78912341");
         reservation.setCar(reservedCar);
         reservation.setStatus(ReservationStatus.ACTIVE);
         reservation.setMember(sampleMember);
-        reservationRepository.save(reservation);
+        carService.saveReservationForTest(reservation);
 
         boolean deleteReservedCarResult = carService.deleteCar("11223");
         assertFalse(deleteReservedCarResult);

@@ -4,6 +4,7 @@ import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.model.*;
 import com.springcourse.project.repository.CarRepository;
+import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class CarService {
     private CarRepository carRepository;
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     public List<AvailableCarDTO> searchAvailableCars(String carType, String transmissionType) {
         List<Car> queryResult = carRepository.findByStatusAndTypeAndTransmissionType(CarStatus.fromString("Available"), CarType.fromString(carType), transmissionType);
@@ -92,6 +95,19 @@ public class CarService {
 
     public Optional<Car> findCarById(String barcode){
         return carRepository.findById(barcode);
+    }
+
+    public void saveReservationForTest(Reservation reservation){
+        reservationRepository.save(reservation);
+    }
+    public void saveMemberForTest(Member member){
+        memberRepository.save(member);
+    }
+    public Optional<Reservation> findReservationByIdForTest(String id){
+        return reservationRepository.findById(id);
+    }
+    public List<Reservation> findReservationsByCarBarcode(String barcode){
+        return reservationRepository.findReservationsByCarBarcode(barcode);
     }
 
 }
