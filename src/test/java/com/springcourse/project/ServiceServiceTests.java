@@ -2,11 +2,6 @@ package com.springcourse.project;
 
 import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
-import com.springcourse.project.model.ServiceModel;
-import com.springcourse.project.repository.CarRepository;
-import com.springcourse.project.repository.MemberRepository;
-import com.springcourse.project.repository.ReservationRepository;
-import com.springcourse.project.repository.ServiceRepository;
 import com.springcourse.project.service.ServiceService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
@@ -23,12 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ServiceServiceTests {
     @Autowired
     ServiceService serviceService;
-    @Autowired
-    ReservationRepository reservationRepository;
-    @Autowired
-    CarRepository carRepository;
-    @Autowired
-    MemberRepository memberRepository;
 
     @Test
     @Transactional
@@ -37,16 +26,16 @@ public class ServiceServiceTests {
         Member sampleMember = new Member();
         sampleMember.setId(1L);
         sampleMember.setName("John Doe");
-        memberRepository.save(sampleMember);
+        serviceService.saveMemberForTest(sampleMember);
 
         // Create a sample service
-        ServiceModel sampleService = serviceService.createService(1,"Sample Service",100.0);
+        serviceService.createService(1,"Sample Service",100.0);
 
         // Create a sample reservation
         Reservation sampleReservation = new Reservation();
         sampleReservation.setReservationNumber("78912341");
         sampleReservation.setMember(sampleMember);
-        reservationRepository.save(sampleReservation);
+        serviceService.saveReservationForTest(sampleReservation);
 
         // Add service to reservation
         boolean result = serviceService.addServiceToReservation("78912341", 1);
@@ -61,7 +50,7 @@ public class ServiceServiceTests {
         assertFalse(result3);
 
         // Retrieve the updated reservation
-        Optional<Reservation> updatedReservationOptional = reservationRepository.findById("78912341");
+        Optional<Reservation> updatedReservationOptional = serviceService.findReservationByIdForTest("78912341");
         assertTrue(updatedReservationOptional.isPresent());
         Reservation updatedReservation = updatedReservationOptional.get();
 

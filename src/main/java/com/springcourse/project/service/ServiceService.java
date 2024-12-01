@@ -1,7 +1,9 @@
 package com.springcourse.project.service;
 
+import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.model.ServiceModel;
+import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
 import com.springcourse.project.repository.ServiceRepository;
 import jakarta.transaction.Transactional;
@@ -18,6 +20,8 @@ public class ServiceService {
     private ServiceRepository serviceRepository;
     @Autowired
     private ReservationRepository reservationRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Transactional
     public boolean addServiceToReservation(String reservationNumber, int serviceCode){
@@ -50,5 +54,14 @@ public class ServiceService {
         service.setPrice(price);
         serviceRepository.save(service);
         return service;
+    }
+    public void saveReservationForTest(Reservation reservation){
+        reservationRepository.save(reservation);
+    }
+    public Optional<Reservation> findReservationByIdForTest(String id){
+        return reservationRepository.findById(id);
+    }
+    public void saveMemberForTest(Member member){
+        memberRepository.save(member);
     }
 }
