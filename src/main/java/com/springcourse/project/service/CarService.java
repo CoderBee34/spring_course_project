@@ -76,4 +76,22 @@ public class CarService {
         return false;
     }
 
+    @Transactional
+    public Car createCar(String barcode, String brand, String model, CarStatus carStatus, CarType carType, double mileage, String transmissionType){
+        Car car = new Car();
+        car.setBarcode(barcode);
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setStatus(carStatus);
+        car.setType(carType);
+        car.setMileage(mileage);
+        car.setTransmissionType(transmissionType);
+        carRepository.save(car);
+        return car;
+    }
+
+    public Optional<Car> findCarById(String barcode){
+        return carRepository.findById(barcode);
+    }
+
 }

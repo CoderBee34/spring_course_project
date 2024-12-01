@@ -3,12 +3,10 @@ package com.springcourse.project;
 import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.model.*;
-import com.springcourse.project.repository.CarRepository;
 import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
 import com.springcourse.project.service.CarService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -27,22 +25,18 @@ public class CarServiceTests {
     @Autowired
     ReservationRepository reservationRepository;
     @Autowired
-    CarRepository carRepository;
-    @Autowired
     MemberRepository memberRepository;
 
     @Test
     void searchAvailableCarTest(){
         // Create a sample car
-        Car sampleCar = new Car();
-        sampleCar.setBarcode("12345");
-        sampleCar.setBrand("Toyota");
-        sampleCar.setModel("Corolla");
-        sampleCar.setStatus(CarStatus.AVAILABLE);
-        sampleCar.setType(CarType.STANDARD);
-        sampleCar.setMileage(15000);
-        sampleCar.setTransmissionType("Automatic");
-        carRepository.save(sampleCar);
+        carService.createCar("12345",
+                "Toyota",
+                "Corolla",
+                CarStatus.AVAILABLE,
+                CarType.STANDARD,
+                15000,
+                "Automatic");
 
         // Search for available cars
         List<AvailableCarDTO> carDTOList = carService.searchAvailableCars("Standard", "Automatic");
@@ -61,10 +55,13 @@ public class CarServiceTests {
     @Test
     void getRentedCarsTest(){
         // Create a sample car
-        Car sampleCar = new Car();
-        sampleCar.setBarcode("12345");
-        sampleCar.setStatus(CarStatus.LOANED);
-        carRepository.save(sampleCar);
+        Car sampleCar = carService.createCar("12345",
+                "Toyota",
+                "Corolla",
+                CarStatus.LOANED,
+                CarType.STANDARD,
+                15000,
+                "Automatic");
 
         // Create a sample member
         Member sampleMember = new Member();
@@ -92,10 +89,13 @@ public class CarServiceTests {
     @Test
     void returnCarTest(){
         // Create a sample car
-        Car sampleCar = new Car();
-        sampleCar.setBarcode("12345");
-        sampleCar.setStatus(CarStatus.LOANED);
-        carRepository.save(sampleCar);
+        Car sampleCar = carService.createCar("12345",
+                "Toyota",
+                "Corolla",
+                CarStatus.LOANED,
+                CarType.STANDARD,
+                15000,
+                "Automatic");
 
         // Create a sample member
         Member sampleMember = new Member();
@@ -119,7 +119,7 @@ public class CarServiceTests {
         boolean result = carService.returnCar("78912341");
 
         // Verify the car status is updated to AVAILABLE
-        Optional<Car> carOptional = carRepository.findById("12345");
+        Optional<Car> carOptional = carService.findCarById("12345");
         assertTrue(carOptional.isPresent());
         Car car = carOptional.get();
         assertEquals(CarStatus.AVAILABLE, car.getStatus());
@@ -154,13 +154,16 @@ public class CarServiceTests {
     @Test
     void deleteCarTest() {
         // Create a sample car
-        Car sampleCar = new Car();
-        sampleCar.setBarcode("123456");
-        sampleCar.setStatus(CarStatus.AVAILABLE);
-        carRepository.save(sampleCar);
+        Car sampleCar = carService.createCar("123456",
+                "Toyota",
+                "Corolla",
+                CarStatus.AVAILABLE,
+                CarType.STANDARD,
+                15000,
+                "Automatic");
 
         // Ensure the car is available
-        Optional<Car> carOptional = carRepository.findById("123456");
+        Optional<Car> carOptional = carService.findCarById("123456");
         assertTrue(carOptional.isPresent());
         Car car = carOptional.get();
         assertEquals(CarStatus.AVAILABLE, car.getStatus());
@@ -174,23 +177,31 @@ public class CarServiceTests {
         assertTrue(deleteResult);
 
         // Verify the car is deleted
-        carOptional = carRepository.findById("123456");
+        carOptional = carService.findCarById("123456");
         assertFalse(carOptional.isPresent());
 
         // Test case: Car is not available
-        Car loanedCar = new Car();
-        loanedCar.setBarcode("67890");
-        loanedCar.setStatus(CarStatus.LOANED);
-        carRepository.save(loanedCar);
+        Car loanedCar = carService.createCar("67890",
+                "Toyota",
+                "Corolla",
+                CarStatus.LOANED,
+                CarType.STANDARD,
+                15000,
+                "Automatic");
 
         boolean deleteLoanedCarResult = carService.deleteCar("67890");
         assertFalse(deleteLoanedCarResult);
 
         // Test case: Car has reservations
-        Car reservedCar = new Car();
-        reservedCar.setBarcode("11223");
-        reservedCar.setStatus(CarStatus.AVAILABLE);
-        carRepository.save(reservedCar);
+        Car reservedCar = carService.createCar("11223",
+                "Toyota",
+                "Corolla",
+                CarStatus.AVAILABLE,
+                CarType.STANDARD,
+                15000,
+                "Automatic");
+
+
 
         // Create a sample member
         Member sampleMember = new Member();
