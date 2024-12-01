@@ -33,7 +33,7 @@ public class RentedCarDTO {
         this.memberName = reservation.getMember().getName();
         this.dropOffDateTime = reservation.getDropOffDateTime();
         this.dropOffLocation = reservation.getDropOffLocation();
-
+        
         LocalDate pickUpDateTime = reservation.getPickUpDateTime();
         if (pickUpDateTime != null && dropOffDateTime != null) {
             this.reservationDayCount = Period.between(pickUpDateTime, dropOffDateTime).getDays();

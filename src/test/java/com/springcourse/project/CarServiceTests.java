@@ -2,11 +2,7 @@ package com.springcourse.project;
 
 import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.dto.RentedCarDTO;
-import com.springcourse.project.model.Car;
-import com.springcourse.project.model.Member;
-import com.springcourse.project.model.CarStatus;
-import com.springcourse.project.model.Reservation;
-import com.springcourse.project.model.ReservationStatus;
+import com.springcourse.project.model.*;
 import com.springcourse.project.repository.CarRepository;
 import com.springcourse.project.repository.MemberRepository;
 import com.springcourse.project.repository.ReservationRepository;
@@ -36,10 +32,31 @@ public class CarServiceTests {
 
     @Test
     void searchAvailableCarTest(){
-        List<AvailableCarDTO> carDTOList = carService.searchAvailableCars("Standard", "Automatic");
-        assertNotNull(carDTOList);
-    }
+        // Create a sample car
+        Car sampleCar = new Car();
+        sampleCar.setBarcode("12345");
+        sampleCar.setBrand("Toyota");
+        sampleCar.setModel("Corolla");
+        sampleCar.setStatus(CarStatus.AVAILABLE);
+        sampleCar.setType(CarType.STANDARD);
+        sampleCar.setMileage(15000);
+        sampleCar.setTransmissionType("Automatic");
+        carRepository.save(sampleCar);
 
+        // Search for available cars
+        List<AvailableCarDTO> carDTOList = carService.searchAvailableCars("Standard", "Automatic");
+
+        // Verify the list is not null and contains the expected car
+        assertNotNull(carDTOList);
+        assertFalse(carDTOList.isEmpty());
+        AvailableCarDTO availableCarDTO = carDTOList.get(0);
+        assertEquals(availableCarDTO.getBarcode(), "12345");
+        assertEquals(availableCarDTO.getBrand(), "Toyota");
+        assertEquals(availableCarDTO.getModel(), "Corolla");
+        assertEquals(availableCarDTO.getCarType(), CarType.STANDARD);
+        assertEquals(availableCarDTO.getMileage(), 15000);
+        assertEquals(availableCarDTO.getTransmissionType(), "Automatic");
+    }
     @Test
     void getRentedCarsTest(){
         // Create a sample car
