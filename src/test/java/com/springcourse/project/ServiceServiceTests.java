@@ -28,8 +28,6 @@ public class ServiceServiceTests {
     @Autowired
     CarRepository carRepository;
     @Autowired
-    ServiceRepository serviceRepository;
-    @Autowired
     MemberRepository memberRepository;
 
     @Test
@@ -42,16 +40,12 @@ public class ServiceServiceTests {
         memberRepository.save(sampleMember);
 
         // Create a sample service
-        ServiceModel sampleService = new ServiceModel();
-        sampleService.setId(1);
-        sampleService.setName("Sample Service");
-        sampleService.setPrice(100.0);
-        serviceRepository.save(sampleService);
+        ServiceModel sampleService = serviceService.createService(1,"Sample Service",100.0);
 
         // Create a sample reservation
         Reservation sampleReservation = new Reservation();
         sampleReservation.setReservationNumber("78912341");
-        sampleReservation.setMember(sampleMember); // Set the member
+        sampleReservation.setMember(sampleMember);
         reservationRepository.save(sampleReservation);
 
         // Add service to reservation

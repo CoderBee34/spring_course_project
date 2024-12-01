@@ -43,4 +43,12 @@ public class ServiceService {
         }
         return false;
     }
+    public ServiceModel createService(int id, String name, double price){
+        ServiceModel service = new ServiceModel();
+        service.setId(id);
+        service.setName(name);
+        service.setPrice(price);
+        serviceRepository.save(service);
+        return service;
+    }
 }
