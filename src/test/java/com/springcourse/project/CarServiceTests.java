@@ -30,10 +30,10 @@ public class CarServiceTests {
                                 CarStatus.AVAILABLE,
                                 CarType.STANDARD,
                                 15000,
-                                "Automatic");
+                                "automatic");
 
                 // Search for available cars
-                List<AvailableCarDTO> carDTOList = carService.searchAvailableCars("Standard", "Automatic");
+                List<AvailableCarDTO> carDTOList = carService.searchAvailableCars("standard", "automatic");
 
                 // Verify the list is not null and contains the expected car
                 assertNotNull(carDTOList);
@@ -44,7 +44,7 @@ public class CarServiceTests {
                 assertEquals(availableCarDTO.getModel(), "Corolla");
                 assertEquals(availableCarDTO.getCarType(), CarType.STANDARD);
                 assertEquals(availableCarDTO.getMileage(), 15000);
-                assertEquals(availableCarDTO.getTransmissionType(), "Automatic");
+                assertEquals(availableCarDTO.getTransmissionType(), "automatic");
         }
 
         @Test
