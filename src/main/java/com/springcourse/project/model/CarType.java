@@ -14,13 +14,13 @@ public enum CarType {
     private static final Map<String, CarType> stringToCarTypeMap = new HashMap<>();
 
     static {
-        stringToCarTypeMap.put("Economy", ECONOMY);
-        stringToCarTypeMap.put("People Carrier", PEOPLE_CARRIER);
-        stringToCarTypeMap.put("Estate", ESTATE);
-        stringToCarTypeMap.put("SUV", SUV);
-        stringToCarTypeMap.put("Standard", STANDARD);
-        stringToCarTypeMap.put("Convertible", CONVERTIBLE);
-        stringToCarTypeMap.put("Luxury", LUXURY);
+        stringToCarTypeMap.put("economy", ECONOMY);
+        stringToCarTypeMap.put("people carrier", PEOPLE_CARRIER);
+        stringToCarTypeMap.put("estate", ESTATE);
+        stringToCarTypeMap.put("suv", SUV);
+        stringToCarTypeMap.put("standard", STANDARD);
+        stringToCarTypeMap.put("convertible", CONVERTIBLE);
+        stringToCarTypeMap.put("luxury", LUXURY);
     }
     public static CarType fromString(String type) {
         return stringToCarTypeMap.get(type);
