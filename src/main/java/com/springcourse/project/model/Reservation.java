@@ -174,8 +174,10 @@ public class Reservation {
     public double getTotalAmount() {
         long timeDiffInDays = Period.between(pickUpDateTime, dropOffDateTime).getDays();
         double totalAmount = timeDiffInDays * car.getDailyPrice();
+        if (equipmentList != null)
         for(Equipment equipment : equipmentList)
             totalAmount += equipment.getPrice();
+        if (serviceList != null)
         for (ServiceModel serviceModel : serviceList)
             totalAmount += serviceModel.getPrice();
         return totalAmount;
