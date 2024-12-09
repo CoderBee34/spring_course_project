@@ -25,7 +25,7 @@ public class CarService {
     private MemberRepository memberRepository;
 
     public List<AvailableCarDTO> searchAvailableCars(String carType, String transmissionType) {
-        List<Car> queryResult = carRepository.findByStatusAndTypeAndTransmissionType(CarStatus.fromString("available"), CarType.fromString(carType), transmissionType);
+        List<Car> queryResult = carRepository.findByStatusAndTypeAndTransmissionType(CarStatus.fromString("available"), CarType.fromString(carType.toLowerCase()), transmissionType.toLowerCase());
         List<AvailableCarDTO> returnValue = queryResult.stream().map(car -> new AvailableCarDTO(car)).toList();
         return returnValue;
     }
