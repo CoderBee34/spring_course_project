@@ -12,11 +12,11 @@ public enum CarStatus {
     private static final Map<String, CarStatus> stringToStatusMap = new HashMap<>();
 
     static {
-        stringToStatusMap.put("Available", AVAILABLE);
-        stringToStatusMap.put("Reserved", RESERVED);
-        stringToStatusMap.put("Loaned", LOANED);
-        stringToStatusMap.put("Being Serviced", BEING_SERVICED);
-        stringToStatusMap.put("Lost", LOST);
+        stringToStatusMap.put("available", AVAILABLE);
+        stringToStatusMap.put("reserved", RESERVED);
+        stringToStatusMap.put("loaned", LOANED);
+        stringToStatusMap.put("being serviced", BEING_SERVICED);
+        stringToStatusMap.put("lost", LOST);
     }
 
     public static CarStatus fromString(String status) {
