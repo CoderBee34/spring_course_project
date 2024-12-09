@@ -2,6 +2,7 @@ package com.springcourse.project.controller;
 
 import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.dto.AvailableCarRequestDTO;
+import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,15 @@ public class CarController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.status(HttpStatus.OK).body(availableCarDTOList);
+    }
+
+    @RequestMapping(value="/rented", method = RequestMethod.GET)
+    public ResponseEntity<List<RentedCarDTO>> getRentedCars(){
+        List<RentedCarDTO> rentedCarDTOList = carService.getRentedCars();
+        if (rentedCarDTOList.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(rentedCarDTOList);
     }
 
 }
