@@ -3,7 +3,6 @@ package com.springcourse.project.controller;
 import com.springcourse.project.dto.ReservationDTO;
 import com.springcourse.project.dto.ReservationRequestDTO;
 import com.springcourse.project.model.Equipment;
-import com.springcourse.project.model.ReservationStatus;
 import com.springcourse.project.model.ServiceModel;
 import com.springcourse.project.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class ReservationController {
     @Autowired
     ReservationService reservationService;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/make",method = RequestMethod.POST)
     public ResponseEntity<ReservationDTO> makeReservation(@RequestBody ReservationRequestDTO reservationRequestDTO){
         String carBarcode = reservationRequestDTO.getCarBarcode();
         int dayCount = reservationRequestDTO.getDayCount();
@@ -38,6 +37,19 @@ public class ReservationController {
         if (reservationDTO == null)
             return ResponseEntity.status(206).body(null);
         return ResponseEntity.status(HttpStatus.OK).body(reservationDTO);
+    }
+
+    @RequestMapping(value = "/cancel",method = RequestMethod.POST)
+    public ResponseEntity<Boolean> cancelReservation(@RequestBody String reservationNumber){
+        try {
+            Boolean result = reservationService.cancelReservation(reservationNumber);
+            if (result == true){
+                return ResponseEntity.status(200).body(Boolean.TRUE);
+            }
+            return ResponseEntity.status(404).body(Boolean.FALSE);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Boolean.FALSE);
+        }
     }
 
 }
