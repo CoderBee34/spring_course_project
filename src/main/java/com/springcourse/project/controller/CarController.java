@@ -41,4 +41,17 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.OK).body(rentedCarDTOList);
     }
 
+    @RequestMapping(value="/rented", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> returnCar(@RequestBody String reservationNumber){
+        try {
+            Boolean result = carService.returnCar(reservationNumber);
+            if (result == true){
+                return ResponseEntity.status(200).body(Boolean.TRUE);
+            }
+            return ResponseEntity.status(404).body(Boolean.FALSE);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Boolean.FALSE);
+        }
+    }
+
 }
