@@ -95,6 +95,12 @@ public class CarService {
         carRepository.save(car);
         return car;
     }
+    public boolean isCarPresent(String barcode){
+        if(carRepository.findById(barcode).isPresent()){
+            return true;
+        }
+        return false;
+    }
 
     public Optional<Car> findCarById(String barcode){
         return carRepository.findById(barcode);

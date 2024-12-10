@@ -47,5 +47,21 @@ public class CarController {
             return ResponseEntity.status(500).body(Boolean.FALSE);
         }
     }
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteCar(@RequestBody String carBarcode){
+        if (!carService.isCarPresent(carBarcode)){
+            return ResponseEntity.status(404).body(Boolean.FALSE);
+        }
+        try {
+            Boolean result = carService.deleteCar(carBarcode);
+            if (result == true){
+                return ResponseEntity.status(200).body(Boolean.TRUE);
+            }
+            return ResponseEntity.status(406).body(Boolean.TRUE);
+        } catch (Exception e){
+            return ResponseEntity.status(500).body(Boolean.FALSE);
+        }
+
+    }
 
 }
