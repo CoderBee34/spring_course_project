@@ -5,8 +5,12 @@ import com.springcourse.project.dto.ReservationRequestDTO;
 import com.springcourse.project.model.Equipment;
 import com.springcourse.project.model.ServiceModel;
 import com.springcourse.project.service.ReservationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +22,15 @@ public class ReservationController {
     @Autowired
     ReservationService reservationService;
 
+    @Operation(	summary = "Make a reservation with the given information's.",
+            description = "Returns the reservation info of user."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reservation successfully created.",
+                    content = @Content(schema = @Schema(implementation = ReservationDTO.class))),
+            @ApiResponse(responseCode = "206", description = "Selected car is not available, reservation didn't created.")
+    }
+    )
     @RequestMapping(value = "/make",method = RequestMethod.POST)
     public ResponseEntity<ReservationDTO> makeReservation(@RequestBody ReservationRequestDTO reservationRequestDTO){
         String carBarcode = reservationRequestDTO.getCarBarcode();
@@ -36,7 +49,7 @@ public class ReservationController {
                                                                             serviceList);
         if (reservationDTO == null)
             return ResponseEntity.status(206).body(null);
-        return ResponseEntity.status(HttpStatus.OK).body(reservationDTO);
+        return ResponseEntity.status(200).body(reservationDTO);
     }
 
     @RequestMapping(value = "/cancel",method = RequestMethod.POST)

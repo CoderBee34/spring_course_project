@@ -4,7 +4,6 @@ import com.springcourse.project.dto.AvailableCarDTO;
 import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,18 +20,18 @@ public class CarController {
 
         List<AvailableCarDTO> availableCarDTOList=carService.searchAvailableCars(carType, transmissionType);
         if (availableCarDTOList.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(404).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(availableCarDTOList);
+        return ResponseEntity.status(202).body(availableCarDTOList);
     }
 
     @RequestMapping(value="/rented", method = RequestMethod.GET)
     public ResponseEntity<List<RentedCarDTO>> getRentedCars(){
         List<RentedCarDTO> rentedCarDTOList = carService.getRentedCars();
         if (rentedCarDTOList.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(404).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(rentedCarDTOList);
+        return ResponseEntity.status(200).body(rentedCarDTOList);
     }
 
     @RequestMapping(value="/rented", method = RequestMethod.POST)
