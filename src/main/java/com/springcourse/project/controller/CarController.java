@@ -34,7 +34,7 @@ public class CarController {
         return ResponseEntity.status(200).body(rentedCarDTOList);
     }
 
-    @RequestMapping(value="/rented", method = RequestMethod.POST)
+    @RequestMapping(value="/rented", method = RequestMethod.DELETE)
     public ResponseEntity<Boolean> returnCar(@RequestBody String reservationNumber){
         try {
             Boolean result = carService.returnCar(reservationNumber);
