@@ -52,4 +52,17 @@ public class ReservationController {
         }
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteReservation(@RequestBody String reservationNumber){
+        try {
+            Boolean result = reservationService.deleteReservation(reservationNumber);
+            if (result == true){
+                return ResponseEntity.status(200).body(Boolean.TRUE);
+            }
+            return ResponseEntity.status(404).body(Boolean.FALSE);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Boolean.FALSE);
+        }
+    }
+
 }
