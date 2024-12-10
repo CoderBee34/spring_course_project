@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,6 +15,7 @@ public class ServiceController {
     @Autowired
     ServiceService serviceService;
 
+    @RequestMapping(value="/add", method = RequestMethod.POST)
     public ResponseEntity<Boolean> addServiceToReservation(@RequestBody AdditionalServiceRequestDTO additionalServiceRequestDTO){
         String reservationNumber = additionalServiceRequestDTO.getReservationNumber();
         int serviceId = additionalServiceRequestDTO.getServiceId();
