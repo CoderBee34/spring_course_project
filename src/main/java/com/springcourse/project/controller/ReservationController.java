@@ -29,7 +29,7 @@ public class ReservationController {
             @ApiResponse(responseCode = "200", description = "Reservation successfully created.",
                     content = @Content(schema = @Schema(implementation = ReservationDTO.class))),
             @ApiResponse(responseCode = "206", description = "Selected car is not available, reservation didn't created.")
-    }
+        }
     )
     @RequestMapping(value = "/make",method = RequestMethod.POST)
     public ResponseEntity<ReservationDTO> makeReservation(@RequestBody ReservationRequestDTO reservationRequestDTO){
@@ -51,9 +51,11 @@ public class ReservationController {
             return ResponseEntity.status(206).body(null);
         return ResponseEntity.status(200).body(reservationDTO);
     }
-
+    @Operation(	summary = "Cancel a reservation with the given information's.",
+            description = "Returns the boolean result of operation."
+    )
     @RequestMapping(value = "/cancel",method = RequestMethod.POST)
-    public ResponseEntity<Boolean> cancelReservation(@RequestBody String reservationNumber){
+    public ResponseEntity<Boolean> cancelReservation(@RequestParam String reservationNumber){
         try {
             Boolean result = reservationService.cancelReservation(reservationNumber);
             if (result == true){
@@ -64,12 +66,14 @@ public class ReservationController {
             return ResponseEntity.status(500).body(Boolean.FALSE);
         }
     }
-
+    @Operation(	summary = "Delete the reservation with the given information.",
+            description = "Returns the boolean result of operation."
+    )
     @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deleteReservation(@RequestBody String reservationNumber){
+    public ResponseEntity<Boolean> deleteReservation(@RequestParam String reservationNumber){
         try {
             Boolean result = reservationService.deleteReservation(reservationNumber);
-            if (result == true){
+            if (result.booleanValue() == true){
                 return ResponseEntity.status(200).body(Boolean.TRUE);
             }
             return ResponseEntity.status(404).body(Boolean.FALSE);
