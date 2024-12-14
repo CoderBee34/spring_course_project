@@ -54,8 +54,17 @@ public class ReservationController {
     @Operation(	summary = "Cancel a reservation with the given information's.",
             description = "Returns the boolean result of operation."
     )
-    @RequestMapping(value = "/cancel",method = RequestMethod.POST)
-    public ResponseEntity<Boolean> cancelReservation(@RequestParam String reservationNumber){
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reservation successfully cancelled.",
+                    content = @Content(schema = @Schema(implementation = Boolean.class))),
+            @ApiResponse(responseCode = "404", description = "Selected reservation is not found.",
+                    content = @Content(schema = @Schema(implementation = Boolean.class))),
+            @ApiResponse(responseCode = "500", description = "An exception occurred in the server side.",
+                    content = @Content(schema = @Schema(implementation = Boolean.class)))
+        }
+    )
+    @RequestMapping(value = "/cancel/{reservation-number}",method = RequestMethod.POST)
+    public ResponseEntity<Boolean> cancelReservation(@PathVariable("reservation-number") String reservationNumber){
         try {
             Boolean result = reservationService.cancelReservation(reservationNumber);
             if (result == true){
@@ -69,8 +78,17 @@ public class ReservationController {
     @Operation(	summary = "Delete the reservation with the given information.",
             description = "Returns the boolean result of operation."
     )
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<Boolean> deleteReservation(@RequestParam String reservationNumber){
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Reservation successfully deleted.",
+                    content = @Content(schema = @Schema(implementation = Boolean.class))),
+            @ApiResponse(responseCode = "404", description = "Selected reservation is not found.",
+                    content = @Content(schema = @Schema(implementation = Boolean.class))),
+            @ApiResponse(responseCode = "500", description = "An exception occurred in the server side.",
+                    content = @Content(schema = @Schema(implementation = Boolean.class)))
+        }
+    )
+    @RequestMapping(value = "/{reservation-number}",method = RequestMethod.DELETE)
+    public ResponseEntity<Boolean> deleteReservation(@PathVariable("reservation-number") String reservationNumber){
         try {
             Boolean result = reservationService.deleteReservation(reservationNumber);
             if (result.booleanValue() == true){
