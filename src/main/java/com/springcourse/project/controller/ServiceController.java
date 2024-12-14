@@ -34,8 +34,6 @@ public class ServiceController {
     )
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public ResponseEntity<Boolean> addServiceToReservation(@RequestBody AdditionalServiceRequestDTO additionalServiceRequestDTO){
-        String reservationNumber = additionalServiceRequestDTO.getReservationNumber();
-        int serviceId = additionalServiceRequestDTO.getServiceId();
         try{
             Boolean result = serviceService.addServiceToReservation(additionalServiceRequestDTO);
             if (result == true){

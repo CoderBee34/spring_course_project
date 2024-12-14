@@ -34,8 +34,6 @@ public class EquipmentController {
     )
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public ResponseEntity<Boolean> addEquipmentToReservation(@RequestBody AdditionalEquipmentRequestDTO additionalEquipmentRequestDTO){
-        String reservationNumber = additionalEquipmentRequestDTO.getReservationNumber();
-        int serviceId = additionalEquipmentRequestDTO.getEquipmentId();
         try{
             Boolean result = equipmentService.addEquipmentToReservation(additionalEquipmentRequestDTO);
             if (result == true){

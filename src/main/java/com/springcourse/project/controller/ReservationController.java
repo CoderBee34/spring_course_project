@@ -2,8 +2,6 @@ package com.springcourse.project.controller;
 
 import com.springcourse.project.dto.ReservationDTO;
 import com.springcourse.project.dto.ReservationRequestDTO;
-import com.springcourse.project.model.Equipment;
-import com.springcourse.project.model.ServiceModel;
 import com.springcourse.project.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,9 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/reservations")
 public class ReservationController {
