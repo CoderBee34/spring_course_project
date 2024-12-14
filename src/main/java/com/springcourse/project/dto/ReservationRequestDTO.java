@@ -14,6 +14,19 @@ public class ReservationRequestDTO {
     private List<Equipment> equipmentList;
     private List<ServiceModel> serviceList;
 
+    public ReservationRequestDTO() {
+    }
+
+    public ReservationRequestDTO(String carBarcode, int dayCount, long memberID, int pickUpLocationCode, int dropOffLocationCode, List<Equipment> equipmentList, List<ServiceModel> serviceList) {
+        this.carBarcode = carBarcode;
+        this.dayCount = dayCount;
+        this.memberID = memberID;
+        this.pickUpLocationCode = pickUpLocationCode;
+        this.dropOffLocationCode = dropOffLocationCode;
+        this.equipmentList = equipmentList;
+        this.serviceList = serviceList;
+    }
+
     public String getCarBarcode() {
         return carBarcode;
     }

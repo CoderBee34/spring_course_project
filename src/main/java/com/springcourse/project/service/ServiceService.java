@@ -1,5 +1,6 @@
 package com.springcourse.project.service;
 
+import com.springcourse.project.dto.AdditionalServiceRequestDTO;
 import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.model.ServiceModel;
@@ -24,7 +25,9 @@ public class ServiceService {
     private MemberRepository memberRepository;
 
     @Transactional
-    public boolean addServiceToReservation(String reservationNumber, int serviceCode){
+    public boolean addServiceToReservation(AdditionalServiceRequestDTO additionalServiceRequestDTO){
+        String reservationNumber = additionalServiceRequestDTO.getReservationNumber();
+        int serviceCode = additionalServiceRequestDTO.getServiceId();
         Optional<ServiceModel> serviceOptional = serviceRepository.findById(serviceCode);
         if (serviceOptional.isPresent()){
             ServiceModel service = serviceOptional.get();

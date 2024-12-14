@@ -4,6 +4,14 @@ public class AdditionalEquipmentRequestDTO {
     private String reservationNumber;
     private int EquipmentId;
 
+    public AdditionalEquipmentRequestDTO() {
+    }
+
+    public AdditionalEquipmentRequestDTO(String reservationNumber, int equipmentId) {
+        this.reservationNumber = reservationNumber;
+        EquipmentId = equipmentId;
+    }
+
     public String getReservationNumber() {
         return reservationNumber;
     }

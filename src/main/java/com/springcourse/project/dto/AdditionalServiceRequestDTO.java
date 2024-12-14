@@ -4,6 +4,14 @@ public class AdditionalServiceRequestDTO {
     private String reservationNumber;
     private int ServiceId;
 
+    public AdditionalServiceRequestDTO() {
+    }
+
+    public AdditionalServiceRequestDTO(String reservationNumber, int serviceId) {
+        this.reservationNumber = reservationNumber;
+        ServiceId = serviceId;
+    }
+
     public String getReservationNumber() {
         return reservationNumber;
     }

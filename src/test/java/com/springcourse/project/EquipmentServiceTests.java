@@ -1,5 +1,6 @@
 package com.springcourse.project;
 
+import com.springcourse.project.dto.AdditionalEquipmentRequestDTO;
 import com.springcourse.project.model.Equipment;
 import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
@@ -42,11 +43,11 @@ public class EquipmentServiceTests {
         equipmentService.saveReservationForTest(sampleReservation);
 
         // Add equipment to reservation
-        boolean result = equipmentService.addEquipmentToReservation("78912341", 1);
+        boolean result = equipmentService.addEquipmentToReservation(new AdditionalEquipmentRequestDTO("78912341", 1));
         // Add the same one again
-        boolean result2 = equipmentService.addEquipmentToReservation("78912341", 1);
+        boolean result2 = equipmentService.addEquipmentToReservation(new AdditionalEquipmentRequestDTO("78912341", 1));
         // Add a non-existing equipment
-        boolean result3 = equipmentService.addEquipmentToReservation("78912341", 999);
+        boolean result3 = equipmentService.addEquipmentToReservation(new AdditionalEquipmentRequestDTO("78912341", 999));
 
         // Verify the equipment was added successfully
         assertTrue(result);

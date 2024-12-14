@@ -1,5 +1,6 @@
 package com.springcourse.project.service;
 
+import com.springcourse.project.dto.AdditionalEquipmentRequestDTO;
 import com.springcourse.project.model.Equipment;
 import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
@@ -23,7 +24,9 @@ public class EquipmentService {
     private MemberRepository memberRepository;
 
     @Transactional
-    public boolean addEquipmentToReservation(String reservationNumber, int equipmentCode){
+    public boolean addEquipmentToReservation(AdditionalEquipmentRequestDTO additionalEquipmentRequestDTO){
+        String reservationNumber = additionalEquipmentRequestDTO.getReservationNumber();
+        int equipmentCode = additionalEquipmentRequestDTO.getEquipmentId();
         Optional<Equipment> equipmentOptional = equipmentRepository.findById(equipmentCode);
         if (equipmentOptional.isPresent()){
             Equipment equipment = equipmentOptional.get();

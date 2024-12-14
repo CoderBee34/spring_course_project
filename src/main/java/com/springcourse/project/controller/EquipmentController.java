@@ -37,7 +37,7 @@ public class EquipmentController {
         String reservationNumber = additionalEquipmentRequestDTO.getReservationNumber();
         int serviceId = additionalEquipmentRequestDTO.getEquipmentId();
         try{
-            Boolean result = equipmentService.addEquipmentToReservation(reservationNumber,serviceId);
+            Boolean result = equipmentService.addEquipmentToReservation(additionalEquipmentRequestDTO);
             if (result == true){
                 return ResponseEntity.status(200).body(Boolean.TRUE);
             }

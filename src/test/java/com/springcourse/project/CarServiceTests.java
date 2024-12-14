@@ -1,6 +1,7 @@
 package com.springcourse.project;
 
 import com.springcourse.project.dto.AvailableCarDTO;
+import com.springcourse.project.dto.AvailableCarRequestDTO;
 import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.model.*;
 import com.springcourse.project.service.CarService;
@@ -33,7 +34,7 @@ public class CarServiceTests {
                                 "automatic");
 
                 // Search for available cars
-                List<AvailableCarDTO> carDTOList = carService.searchAvailableCars("standard", "automatic");
+                List<AvailableCarDTO> carDTOList = carService.searchAvailableCars(new AvailableCarRequestDTO("standard", "automatic"));
 
                 // Verify the list is not null and contains the expected car
                 assertNotNull(carDTOList);

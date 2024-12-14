@@ -1,6 +1,7 @@
 package com.springcourse.project;
 
 import com.springcourse.project.dto.ReservationDTO;
+import com.springcourse.project.dto.ReservationRequestDTO;
 import com.springcourse.project.model.*;
 import com.springcourse.project.service.ReservationService;
 import org.junit.jupiter.api.Test;
@@ -78,8 +79,8 @@ public class ReservationServiceTests {
         List<ServiceModel> serviceList = Arrays.asList(service1, service2);
 
         // Make the reservation
-        ReservationDTO reservationDTO = reservationService.makeReservation(
-                "12345", 5, 1L, 1, 2, equipmentList, serviceList);
+        ReservationDTO reservationDTO = reservationService.makeReservation(new ReservationRequestDTO
+                ("12345", 5, 1L, 1, 2, equipmentList, serviceList));
 
         // Verify the reservation was created successfully
         assertNotNull(reservationDTO);

@@ -1,6 +1,7 @@
 package com.springcourse.project.service;
 
 import com.springcourse.project.dto.AvailableCarDTO;
+import com.springcourse.project.dto.AvailableCarRequestDTO;
 import com.springcourse.project.dto.RentedCarDTO;
 import com.springcourse.project.model.*;
 import com.springcourse.project.repository.CarRepository;
@@ -24,7 +25,9 @@ public class CarService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public List<AvailableCarDTO> searchAvailableCars(String carType, String transmissionType) {
+    public List<AvailableCarDTO> searchAvailableCars(AvailableCarRequestDTO availableCarRequestDTO) {
+        String carType = availableCarRequestDTO.getCarType();
+        String transmissionType = availableCarRequestDTO.getTransmissionType();
         List<Car> queryResult = carRepository.findByStatusAndTypeAndTransmissionType(CarStatus.fromString("available"), CarType.fromString(carType.toLowerCase()), transmissionType.toLowerCase());
         List<AvailableCarDTO> returnValue = queryResult.stream().map(car -> new AvailableCarDTO(car)).toList();
         return returnValue;

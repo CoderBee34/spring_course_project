@@ -1,5 +1,6 @@
 package com.springcourse.project;
 
+import com.springcourse.project.dto.AdditionalServiceRequestDTO;
 import com.springcourse.project.model.Member;
 import com.springcourse.project.model.Reservation;
 import com.springcourse.project.service.ServiceService;
@@ -38,11 +39,11 @@ public class ServiceServiceTests {
         serviceService.saveReservationForTest(sampleReservation);
 
         // Add service to reservation
-        boolean result = serviceService.addServiceToReservation("78912341", 1);
+        boolean result = serviceService.addServiceToReservation(new AdditionalServiceRequestDTO("78912341", 1));
         //Add the same one again
-        boolean result2 = serviceService.addServiceToReservation("78912341", 1);
+        boolean result2 = serviceService.addServiceToReservation(new AdditionalServiceRequestDTO("78912341", 1));
         //Add a non-existing service
-        boolean result3 = serviceService.addServiceToReservation("78912341", 999);
+        boolean result3 = serviceService.addServiceToReservation(new AdditionalServiceRequestDTO("78912341", 999));
 
         // Verify the service was added successfully
         assertTrue(result);

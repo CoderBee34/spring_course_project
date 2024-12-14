@@ -37,7 +37,7 @@ public class ServiceController {
         String reservationNumber = additionalServiceRequestDTO.getReservationNumber();
         int serviceId = additionalServiceRequestDTO.getServiceId();
         try{
-            Boolean result = serviceService.addServiceToReservation(reservationNumber,serviceId);
+            Boolean result = serviceService.addServiceToReservation(additionalServiceRequestDTO);
             if (result == true){
                 return ResponseEntity.status(200).body(Boolean.TRUE);
             }

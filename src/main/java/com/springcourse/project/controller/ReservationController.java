@@ -33,20 +33,7 @@ public class ReservationController {
     )
     @RequestMapping(value = "/make",method = RequestMethod.POST)
     public ResponseEntity<ReservationDTO> makeReservation(@RequestBody ReservationRequestDTO reservationRequestDTO){
-        String carBarcode = reservationRequestDTO.getCarBarcode();
-        int dayCount = reservationRequestDTO.getDayCount();
-        long memberID = reservationRequestDTO.getMemberID();
-        int pickUpLocationCode = reservationRequestDTO.getPickUpLocationCode();
-        int dropOffLocationCode = reservationRequestDTO.getDropOffLocationCode();
-        List<Equipment> equipmentList = reservationRequestDTO.getEquipmentList();
-        List< ServiceModel> serviceList = reservationRequestDTO.getServiceList();
-        ReservationDTO reservationDTO = reservationService.makeReservation( carBarcode,
-                                                                            dayCount,
-                                                                            memberID,
-                                                                            pickUpLocationCode,
-                                                                            dropOffLocationCode,
-                                                                            equipmentList,
-                                                                            serviceList);
+        ReservationDTO reservationDTO = reservationService.makeReservation(reservationRequestDTO);
         if (reservationDTO == null)
             return ResponseEntity.status(206).body(null);
         return ResponseEntity.status(200).body(reservationDTO);
