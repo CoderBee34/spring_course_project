@@ -32,7 +32,7 @@ public class CarController {
         }
     )
     @RequestMapping(value="/available", method = RequestMethod.GET)
-    public ResponseEntity<List<AvailableCarDTO>> searchAvailableCars(@RequestBody AvailableCarRequestDTO availableCarRequestDTO) {
+    public ResponseEntity<List<AvailableCarDTO>> searchAvailableCars(@ModelAttribute AvailableCarRequestDTO availableCarRequestDTO) {
         List<AvailableCarDTO> availableCarDTOList=carService.searchAvailableCars(availableCarRequestDTO);
         if (availableCarDTOList.isEmpty()){
             return ResponseEntity.status(404).body(null);

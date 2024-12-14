@@ -86,7 +86,7 @@ public class DatabaseRunner implements CommandLineRunner {
         reservation.setPickUpLocation(location1);
         reservation.setDropOffLocation(location2);
         reservation.setReturnDate(LocalDate.now().plusDays(20));
-        reservation.setStatus(ReservationStatus.CONFIRMED);
+        reservation.setStatus(ReservationStatus.ACTIVE);
         reservation.setEquipmentList(Arrays.asList(equipment1));
         reservation.setServiceList(Arrays.asList(service2));
         reservation.setMember(member);
