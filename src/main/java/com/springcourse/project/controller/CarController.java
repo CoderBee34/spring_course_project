@@ -58,7 +58,7 @@ public class CarController {
         return ResponseEntity.status(200).body(rentedCarDTOList);
     }
 
-    @Operation(	summary = "Returns the car by given information's.",
+    @Operation(	summary = "Returns rented car by given car barcode information's.",
             description = "Returns the boolean result of operation."
     )
     @ApiResponses(value = {
